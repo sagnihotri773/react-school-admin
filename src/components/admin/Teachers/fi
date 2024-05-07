@@ -1,0 +1,181 @@
+// <Form className='form-column'>
+//   <div className={window?.innerWidth < 912 ? 'grid mt-3' : 'row'}>
+
+//     <div className="col-md-6 gap md:p-8">
+//       <div className="grid mb-3">
+//         <Label className="text-sm"> Teacher Name</Label>
+//         <Field type="text" id="teacherName" name="teacherName" placeholder="Enter Teacher Name" className={styleInput} />
+//         <ErrorMessage name="teacherName" component="div" className="error-message" />
+//       </div>
+
+
+
+//       <div className="grid mb-3">
+//         <Label className="text-sm" htmlFor="email">Email:</Label>
+//         <Field type="email" name="email" className={styleInput} />
+//         <ErrorMessage name="email" component="div" className="error-message" />
+//       </div>
+
+
+
+//       <div className="grid mb-3">
+//         <Label className="text-sm" htmlFor="gender">Gender:</Label>
+//         <Field as="select" name="gender" className={styleInput}>
+//           <option value="">Select Gender</option>
+//           <option value="male">Male</option>
+//           <option value="female">Female</option>
+//         </Field>
+//         <ErrorMessage name="gender" component="div" className="error-message" />
+//       </div>
+
+
+
+//       <div className="grid mb-3">
+//         <Label className="text-sm" htmlFor="qualification">Qualification:</Label>
+//         <Field type="text" name="qualification" className={styleInput} />
+//         <ErrorMessage name="qualification" component="div" className="error-message" />
+
+//       </div>
+
+//       <div className="grid mb-3">
+//         <Label className="text-sm" htmlFor="skills">Skills:</Label>
+//         <Field type="text" name="skills" className={styleInput} />
+//         <ErrorMessage name="skills" component="div" className="error-message" />
+
+//       </div>
+
+
+
+//       <div className="grid mb-3">
+//         <Label className="text-sm" htmlFor="fatherName">Father's Name:</Label>
+//         <Field type="text" name="fatherName" className={styleInput} />
+//         <ErrorMessage name="fatherName" component="div" className="error-message" />
+//       </div>
+
+
+//       <div className="grid mb-3">
+//         <Label className="text-sm" htmlFor="adharCardImg">Adhar Card Image URL:</Label>
+//         <Field type="text" name="adharCardImg" className={styleInput} />
+//         <ErrorMessage name="adharCardImg" component="div" className="error-message" />
+
+//       </div>
+//       <div className="grid mb-3">
+
+//         <Label className="text-sm" htmlFor="address">Address:</Label>
+//         <Field type="text" name="address" className={styleInput} />
+//         <ErrorMessage name="address" component="div" className="error-message" />
+//       </div>
+
+//       <div className="grid mb-3">
+
+//       </div>
+//       <Label className="text-sm" htmlFor="joiningDate">Joining Date:</Label>
+//       <Field type="date" name="joiningDate" className={styleInput} />
+//       <ErrorMessage name="joiningDate" component="div" className="error-message" />
+
+//       <div className="grid mb-3">
+//         <Label className="text-sm" htmlFor="teacherId">Teacher ID Number:</Label>
+//         <Field type="text" name="teacherId" className={styleInput} />
+//         <ErrorMessage name="teacherId" component="div" className="error-message" />
+
+//       </div>
+
+
+//   {selectedImage &&
+//     <div className="border border-dashed border-gray-200 rounded-lg w-[350px] p-4 flex items-center ">
+//       <div className="relative w-[350px] h-[200px] sm:h-[250px] lg:h-[300px] xl:h-[250px] 2xl:h-[300px]">
+//         <img
+//           alt="Uploaded picture"
+//           className="object-cover rounded-lg"
+//           height="250"
+//           src={URL.createObjectURL(selectedImage)}
+//           style={{
+//             aspectRatio: "400/250",
+//             objectFit: "cover",
+//           }}
+//           width="400"
+//         />
+//         <Button className="absolute top-2 right-2 bg-black text-white" size="icon" variant="outline" type="button" onClick={() => handleRemoveImage(setFieldValue)}>
+//           <TrashIcon className="h-4 w-4" />
+//           <span className="sr-only" >Delete</span>
+//         </Button>
+//       </div>
+//     </div>}
+
+
+
+
+//   <div className="grid mb-3">
+//     <Label className="text-sm" htmlFor="image">Image</Label>
+//     <input type="file" id="image" name="image" accept=".jpg, .jpeg, .png" className={styleInput}
+//       onChange={(event) => {
+//         handleFile(setFieldValue, event)
+//       }}
+//     />
+//     <ErrorMessage name="image" component="div" className="error-message" />
+//   </div>
+
+
+
+
+
+
+//     </div>
+
+
+//     <div className="col-md-6 gap md:p-8">
+
+
+
+//       <div className="grid mb-3">
+//         <Label className="text-sm" htmlFor="phoneNumber">Phone Number:</Label>
+//         <Field type="text" name="phoneNumber" className={styleInput} />
+//         <ErrorMessage name="phoneNumber" component="div" className="error-message" />
+//       </div>
+
+//       <div className="grid mb-3">
+//         <Label className="text-sm" htmlFor="age">Age:</Label>
+//         <Field type="number" name="age" className={styleInput} />
+//         <ErrorMessage name="age" component="div" className="error-message" />
+//       </div>
+
+//       <div className="grid mb-3">
+//         <Label className="text-sm" htmlFor="experience">Experience:</Label>
+//         <Field type="number" name="experience" className={styleInput} />
+//         <ErrorMessage name="experience" component="div" className="error-message" />
+
+//       </div>
+//       <div className="grid mb-3">
+//         <Label className="text-sm" htmlFor="bloodGroup">Blood Group:</Label>
+//         <Field type="text" name="bloodGroup" className={styleInput} />
+//         <ErrorMessage name="bloodGroup" component="div" className="error-message" />
+//       </div>
+
+
+//       <div className="grid mb-3">
+//         <Label className="text-sm" htmlFor="teacherClass">Teacher Class:</Label>
+//         <Field type="text" name="teacherClass" className={styleInput} />
+//         <ErrorMessage name="teacherClass" component="div" className="error-message" />
+//       </div>
+
+//     </div>
+
+//     <div className="col-md-12 gap md:p-8">
+//       <div className="grid mb-3">
+//         <Label className="text-sm">Description</Label>
+//         <Field as="textarea" id="description" name="description" className={'min-h-[100px] ' + styleInput} placeholder="Enter your description" />
+//         <ErrorMessage name="description" component="div" className="error-message" />
+//       </div>
+//     </div>
+
+//     <div className="flex items-center space-x-2">
+//       <Button type="submit" className="ml-auto bg-black text-white" size="sm">Submit</Button>
+//       {isLoading &&
+//         <Button size="icon" variant="outline">
+//           <RefreshCwIcon className="animate-spin h-4 w-4" />
+//           <span className="sr-only">Loading</span>
+//         </Button>
+//       }
+//     </div>
+//   </div>
+// </Form>
