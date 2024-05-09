@@ -1,0 +1,12 @@
+.addColorCode {
+    background: #4CAF50;
+}
+.addColorCode:hover {
+    background-color: #3e8e41;
+  }
+.listingColorCode {
+    background-color: #2196F3;
+}
+.listingColorCode:hover {
+    background-color: #1976D2;
+}

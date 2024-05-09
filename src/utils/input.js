@@ -9,9 +9,9 @@ import { styleInputTextarea } from '../utils/utils'
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 
-export default function input({ fieldConfig, handleFile, setFieldValue, styleInput, img = "", handleRemoveImage, multipalSelect, values }) {
+export default function input(props) {
 
-
+    const { fieldConfig, handleFile, setFieldValue, styleInput, img = "", handleRemoveImage, multipalSelect, values, filterButtonAction, filterButtonName = '' } =  props;
     const handleCheckboxChange = () => {
         if (img) {
             window.open(img, '_blank');
@@ -33,7 +33,7 @@ export default function input({ fieldConfig, handleFile, setFieldValue, styleInp
     }
 
 
-    return fieldConfig.map(field => (
+    return fieldConfig.map((field, i, array) => (
         <>
             {field?.header ?
                 <div className={`col-md-12 mt-4 ${field?.headerClass}`}>
@@ -94,7 +94,7 @@ export default function input({ fieldConfig, handleFile, setFieldValue, styleInp
                             width="150"
                             onClick={handleCheckboxChange}
                         />
-                        <Button as="label" type="button" className=" ml-3 h-auto" variant="outline">
+                        <Button as="label" type="button" className="ml-3 h-auto" variant="outline">
                             <UploadIcon className="h-4 w-4 mb-2" />&nbsp;
                             <Label className={`text-sm ${field?.labelClass}`} htmlFor={field.name}>{field.label}</Label>
                             <Input className="sr-only" id="image" type="file" onChange={(event) => {
@@ -107,14 +107,13 @@ export default function input({ fieldConfig, handleFile, setFieldValue, styleInp
                         <Label className={`text-sm ${field?.labelClass}`} htmlFor={field.name}>{field.label}</Label>
                         <Field type={field.type} as={field.type} rows={field?.rows} cols={field?.cols} name={field.name} className={styleInputTextarea} />
                     </>
-                    :
-                    (
+                    : (
                         <>
                             <Label className={`text-sm ${field?.labelClass}`} htmlFor={field.name}>{field.label}</Label>
-                            <Field type={field.type} name={field.name} className={styleInput} />
+                            <Field type={field.type} name={field.name}  {...field?.element} className={styleInput} />
                         </>
                     )}
-                <ErrorMessage name={field.name} component="div" className="error-message" />
+                {field?.ErrorMessageShow && <ErrorMessage name={field.name} component="div" className="error-message" />}
             </div>
         </>
     ))

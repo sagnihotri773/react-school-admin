@@ -2,78 +2,148 @@ import { Card, CardTitle, CardContent, CardHeader, CardDescription } from '../..
 import { Button } from '../../ui/button';
 import Sidebar from '../layout/sidebar';
 import Header from '../layout/header';
-import { MoreHorizontalIcon } from '../../../utils/utils';
+import { isMobile, MoreVerticalIcon, MoreHorizontalIcon, PlusIcon, UploadIcon, DownloadIcon, ArrowUpDownIcon , FilterIcon } from '../../../utils/utils';
 import { TableHead, TableRow, TableHeader, TableCell, TableBody, Table } from "../../ui/table"
 import { Checkbox } from "../../ui/checkbox";
 import { DropdownMenuTrigger, DropdownMenuItem, DropdownMenuContent, DropdownMenu } from "../../ui/dropdown-menu"
 import { useNavigate } from 'react-router-dom';
-import { ArrayItems } from '../../../utils/utils';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { ArrayItems, styleInput, ChevronRightIcon } from '../../../utils/utils';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
+import { initialOptions, data, hTitls } from './Extra';
+import InputFields from '../../../utils/input';
+import { filterFieldConfig, initialValues } from './Fields';
+import { CollapsibleTrigger, CollapsibleContent, Collapsible } from "../../ui/collapsible";
 
-const data = [
-    {
-        name: 'John Doe',
-        email: 'john@example.com',
-        class: '10th Grade',
-        address: '123 Main St',
-        gender: 'Male',
-        phone: '123-456-7890',
-        designation: 'Teacher',
-        subjects: ['Math', 'Science', 'English']
-    },
-    {
-        name: 'Jane Smith',
-        email: 'jane@example.com',
-        class: '11th Grade',
-        address: '456 Elm St',
-        gender: 'Female',
-        phone: '987-654-3210',
-        designation: 'Principal',
-        subjects: ['History', 'Geography']
-    },
-    // Add more records as needed
-];
+
+const validationSchema = Yup.object().shape({
+    name: Yup.string().required('Name is required'),
+    class: Yup.string().required('Class is required'),
+    section: Yup.string().required('Section is required')
+});
+
 
 export default function TeacherList() {
     const navigate = useNavigate();
     const [selectedItems, setSelectedItems] = useState([]);
+    const [selectAll, setSelectAll] = useState(false);
+    const [openFilter, setOpenFilter] = useState(false);
 
     const handleCheckboxChange = (recordId) => {
-      if (selectedItems.includes(recordId)) {
-        setSelectedItems(selectedItems.filter(item => item !== recordId));
-      } else {
-        setSelectedItems([...selectedItems, recordId]);
-      }
+        if (selectedItems.includes(recordId)) {
+            setSelectedItems(selectedItems.filter(item => item !== recordId));
+        } else {
+            setSelectedItems([...selectedItems, recordId]);
+        }
     };
+
+    const handleSelectAllChange = () => {
+        if (selectAll) {
+            setSelectedItems([]);
+        } else {
+            setSelectedItems(data.map(item => item.id));
+        }
+        setSelectAll(prevState => !prevState);
+    };
+
     const routeRedirect = (value) => {
         navigate(value);
     };
 
-    const getSubject = (value) => {
-        console.log("ccccc" , value);
-
-        return <span className="mt-1 ml-1 mr-1 label font-weight-bold label-lg label-light-success label-inline">{''}</span>
+    const btnRender = () => {
+        return !isMobile ?
+            <>
+                <Button type='button' className="ml-auto bg-black text-white" size="sm" onClick={(e) => routeRedirect('/students/create')}>
+                    <PlusIcon className="w-4 h-4" /> Add Student
+                </Button>
+                <Button type='button' className="ml-2 bg-black text-white" size="sm">
+                    <UploadIcon className="w-4 h-4" />Import
+                </Button>
+                <Button type='button' className="ml-2 bg-black text-white" size="sm">
+                    <DownloadIcon className="w-4 h-4" /> Export
+                </Button>
+            </>
+            :
+            <DropdownMenu >
+                <DropdownMenuTrigger asChild className='ml-auto'>
+                    <Button type='button'
+                        className="rounded-full border border-gray-200 w-8 h-8 dark:border-gray-800 dark:bg-black-800 dark:text-white-800 text-black"
+                        size="icon"
+                        variant="ghost">
+                        <MoreVerticalIcon className="w-4 h-4" />
+                        <span className="sr-only">More</span>
+                    </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="dark:bg-black-800 dark:text-white-800 text-black">
+                    <DropdownMenuItem onClick={(e) => routeRedirect('/Student/create')}> <PlusIcon className="w-4 h-4" /> &nbsp; Add Student</DropdownMenuItem>
+                    <DropdownMenuItem onClick={(e) => handleTeacherActions()}> <UploadIcon className="w-4 h-4" /> &nbsp; Import</DropdownMenuItem>
+                    <DropdownMenuItem onClick={(e) => handleTeacherActions()}>  <DownloadIcon className="w-4 h-4" /> &nbsp; Export</DropdownMenuItem>
+                </DropdownMenuContent>
+            </DropdownMenu>
     }
 
-   
+    const handleTeacherActions = () => {
+
+    }
+
+    const onSubmit = (values) => {
+        console.log("values", values);
+    }
 
     return (
         <div
             key="1"
-            className={`${window?.innerWidth > 912 ? 'grid' : ''} min-h-screen w-full overflow-hidden lg:grid-cols-[220px_1fr] theam_bg`} >
+            className={`${!isMobile ? 'grid' : ''} min-h-screen w-full overflow-hidden lg:grid-cols-[210px_1fr] theam_bg`} >
             <Sidebar />
             <div className="flex flex-col">
                 <Header title="Students" />
                 <div className="flex flex-col w-full">
+                    <main className='flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-6 bg-white  dark:bg-gray-800 dark:text-white-800' >
 
-                    <main className='flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-6 bg-white' >
+                        <Collapsible className="grid gap-1 text-black bold">
+                            <CollapsibleTrigger className={`flex items-center gap-2 rounded-md [&[data-state=open]>svg]:rotate-90 `} style={{ outline: 'none' }} onClick={(e) => setOpenFilter(!openFilter)}>
+                                <ChevronRightIcon type="button" className=" h-4 w-4 transition-all mb-2 mr-4" />
+                            </CollapsibleTrigger>
+
+                            <CollapsibleContent className="grid gap-1 p-0 ">
+                                <Formik
+                                    initialValues={initialValues(filterFieldConfig)}
+                                    validationSchema={validationSchema}
+                                    onSubmit={(values, { resetForm }) => {
+                                        onSubmit(values);
+                                        // resetForm();
+                                        // onRequestClose();
+                                    }}
+                                >
+                                    {({ setFieldValue, isSubmitting, values }) => (
+                                        <Form className="dark:bg-black-800 dark:text-white-800 text-black">
+                                            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+                                                <InputFields
+                                                    fieldConfig={filterFieldConfig}
+                                                    styleInput={styleInput}
+                                                    setFieldValue={setFieldValue}
+                                                    values={values}
+                                                    filterButtonName={'Apply Filter'}
+                                                />
+                                            </div>
+                                            <div className='grid grid-cols-4 md:grid-cols-6 gap-4 mt-3'>
+                                                {/* <Button type='Submit' className='rounded-md bg-black text-white' size="sm" onClick={(e) => onSubmit(values)}> Serach </Button> */}
+                                                <Button type='Submit' className='rounded-md bg-green text-white' size="sm" onClick={(e) => onSubmit(values)}>
+                                                    <FilterIcon className="mr-2 h-4 w-4" />
+                                                    Filter
+                                                </Button>
+                                            </div>
+                                        </Form>
+                                    )}
+                                </Formik>
+                            </CollapsibleContent>
+                        </Collapsible>
                         <Card className="w-full">
                             <CardHeader>
                                 <div className="flex items-center">
-                                    <h1 className="font-semibold text-lg md:text-2xl">Students</h1>
-                                    <Button className="ml-auto bg-black text-white" size="sm" onClick={(e) => routeRedirect('/teacher/create')}>
-                                        Add Students
-                                    </Button>
+                                    <h1 className="font-semibold  md:text-2xl text-black">Students</h1>
+                                    {btnRender()}
                                 </div>
                             </CardHeader>
                             <CardContent className="p-0">
@@ -81,26 +151,25 @@ export default function TeacherList() {
                                     <Table>
                                         <TableHeader>
                                             <TableRow>
-                                                <TableHead className="w-8 leading-none">
-                                                    <Checkbox id="teachers" />
+                                                <TableHead className="text-black w-8 leading-none">
+                                                    <Checkbox
+                                                        id="teachers"
+                                                        checked={selectAll}
+                                                        onClick={handleSelectAllChange}
+                                                    />
                                                 </TableHead>
-                                                <TableHead>Name</TableHead>
-                                                <TableHead>Email</TableHead>
-                                                <TableHead>Class</TableHead>
-                                                <TableHead>Address</TableHead>
-                                                <TableHead>Gender</TableHead>
-                                                <TableHead>Phone</TableHead>
-                                                <TableHead>Designation</TableHead>
-                                                <TableHead>Subjects</TableHead>
-                                                <TableHead className="w-8" />
+                                                {hTitls?.length > 0 ? hTitls?.map((x) => (
+                                                    <TableHead className="text-left cursor-pointer">
+                                                        {x.title}
+                                                    </TableHead>
+                                                )) : ''}
                                             </TableRow>
                                         </TableHeader>
                                         <TableBody>
-
-                                            {data.length > 0 ? data?.map((record ) => (
+                                            {data?.length > 0 ? data?.map((record) => (
                                                 <TableRow className="hover:bg-gray-100">
                                                     <TableCell className="w-8 leading-none">
-                                                        <Checkbox id="teachers_1" checked={selectedItems.includes(record.id)} onChange={() => handleCheckboxChange(record.id)}/>
+                                                        <Checkbox id="teachers_1" checked={selectedItems.includes(record.id)} onChange={() => handleCheckboxChange(record.id)} />
                                                     </TableCell>
                                                     <TableCell className="font-medium">{record.name}</TableCell>
                                                     <TableCell>{record.email}</TableCell>
@@ -131,7 +200,6 @@ export default function TeacherList() {
                                                     </TableCell>
                                                 </TableRow>
                                             )) : "...Loading"}
-
                                         </TableBody>
                                     </Table>
                                 </div>
@@ -143,41 +211,3 @@ export default function TeacherList() {
         </div>
     )
 }
-
-function FileEditIcon(props) {
-    return (
-        <svg
-            {...props}
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-        >
-            <path d="M4 13.5V4a2 2 0 0 1 2-2h8.5L20 7.5V20a2 2 0 0 1-2 2h-5.5" />
-            <polyline points="14 2 14 8 20 8" />
-            <path d="M10.42 12.61a2.1 2.1 0 1 1 2.97 2.97L7.95 21 4 22l.99-3.95 5.43-5.44Z" />
-        </svg>
-    )
-}
-
-
-
-// <TableCell className="flex gap-2 justify-end">
-// <Button aria-label="Edit" size="icon" variant="ghost">
-//   <FileEditIcon className="h-4 w-4" />
-//   <span className="sr-only">Edit</span>
-// </Button>
-// <Button aria-label="Delete" size="icon" variant="ghost">
-//   <TrashIcon className="h-4 w-4" />
-//   <span className="sr-only">Delete</span>
-// </Button>
-// <Button aria-label="View" size="icon" variant="ghost">
-//   <EyeIcon className="h-4 w-4" />
-//   <span className="sr-only">View</span>
-// </Button>
-// </TableCell>

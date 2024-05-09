@@ -1,98 +1,90 @@
-import React, { useEffect, useState } from 'react'
-import { Label } from "../../ui/label"
-import { Button } from '../../ui/button'
+import React, { useEffect, useState } from 'react';
+import { Button } from '../../ui/button';
 import Sidebar from '../layout/sidebar';
 import Header from '../layout/header';
-import API, { postDataRequest, BASE_URL } from '../../../api/apiRoute'
 import { styleInput, TrashIcon, RefreshCwIcon } from '../../../utils/utils';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
-import { showSuccessToast, showErrorToast, ReturnError } from "../../../utils/toastUtils";
 import { useNavigate, useParams } from 'react-router-dom';
-import { useMutation, useQuery } from 'react-query';
-// import { getApiRoute } from './carrgoryApiRoute'
-import axios from 'axios';
+import { fieldConfig, initialValues, validationSchema } from './Fields';
+import InputFields from '../../../utils/input';
+import { v4 as uuidv4 } from 'uuid';
 
-const initialValues = {
-  name: '',
-  image: '',
-  description: ''
-};
+const d = { 'id': 1, "image": 'https://fastly.picsum.photos/id/1064/536/354.jpg?hmac=3m2mR2AP_ciBQdwJZYjqlZAdaBltgQkmiKbK6m6fLAA', "teacherName": "shubham agnihotri", "age": 34, "email": "agnihotrishubham8055@gmail.com", "gender": "male", "phoneNumber": "7009764092", "qualification": "test", "bloodGroup": "AB+", "adharCardImg": "", "address": "vpo rangilpur", "fatherName": "sdsd", "teacherClass": [1, 2, 3], "Section": "C", "skills": "next js , bootstrap, Next js, git hub, firebase, API integration , material ui, ", "experience": 34, "teacherId": "sdsdsd", "joiningDate": "2024-05-10" }
+
 
 export default function Create() {
   const navigate = useNavigate();
-  const [categories, setCategories] = useState([])
+  let { id } = useParams();
+  const [formData, setFormData] = useState([])
   const [isLoading, setIsLoading] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
-  const [category, setCategory] = useState({
-    name: '',
-    description: ''
-  });
-  let { id } = useParams();
-
-  console.log("========", id);
-
-  const validationSchema = Yup.object({
-    name: Yup.string().required('firstName is required'),
-    description: Yup.string().required('Category description is required'),
-    image: Yup.mixed().required('Please select an image file').test(
-      'fileSize',
-      'File size is too large',
-      value => value && value.size <= 3000000 // 3MB
-    ),
-  });
-
 
   useEffect(() => {
-    // /admin/categories/edit/id
-    // getData();
-  }, [id])
-  // const { error, data, refetch } = useQuery('editData', () => getApiRoute(`/admin/categories/edit/${id}`))
-  // console.log("data====", data, error);
+    if (d) {
+      setSelectedImage(d.image)
+    }
+  }, [])
 
-  // const getData = () => {
-  // }
-  // if (id) {
-  //  const { isLoading, error, data, refetch } = useQuery('editData', () => getApiRoute(`/admin/categories/edit/${id}`))
-  //     const { isLoading, error, data, refetch } = useQuery("editData", getApiRoute(`/admin/categories/edit/${id}`));
-  //     console.log("data====", data, isLoading, error);
-  // }
+  useEffect(() => {
+    const storedData = localStorage.getItem('formData');
+    if (storedData) {
+      setFormData(JSON.parse(storedData));
+    }
+  }, []);
 
-  const onSubmit = (value) => {
+  const onSubmit = (values) => {
     setIsLoading(true);
-    var formDataNew = new FormData();
-    console.log("value", value);
-    formDataNew.append('image', value.image);
-    formDataNew.append('name', value.name);
-    formDataNew.append('description', value.description);
+    console.log('values', values);
+    // localStorage.setItem('data', JSON.stringify(values))
+    const newEntry = {...values, id: uuidv4() };
+    setFormData([...formData, newEntry]);
 
-    mutation.mutate(formDataNew);
-    if (mutation.isError) {
-      let errorMessage = ReturnError(mutation.error.response);
-      console.log("errorMessage", errorMessage);
-      navigate('/');
-      showErrorToast(errorMessage);
+    try {
+      // Retrieve existing data from local storage or initialize empty array
+      const existingData = JSON.parse(localStorage.getItem('student')) || [];
+
+      // Add new form data to the array
+      existingData.push(newEntry);
+
+      // Save updated data back to local storage
+      localStorage.setItem('student', JSON.stringify(existingData));
+      setIsLoading(false);
+      navigate('/students/listing');
+      console.log('Form data saved successfully!');
+    } catch (error) {
+      console.error('Error saving form data:', error);
     }
+
+    // var formDataNew = new FormData();
+    // console.log("value", value);
+    // formDataNew.append('image', value.image);
+    // formDataNew.append('name', value.name);
+    // formDataNew.append('description', value.description);
+
+    // mutation.mutate(formDataNew);
+    // if (mutation.isError) {
+    //   let errorMessage = ReturnError(mutation.error.response);
+    //   console.log("errorMessage", errorMessage);
+    //   navigate('/');
+    //   showErrorToast(errorMessage);
+    // }
   }
-
-  const mutation = useMutation(
-    // Define the mutation function
-    async (postData) => {
-      // Make the POST request to the API endpoint
-      const response = await axios.post(BASE_URL + '/admin/categories/add', postData);
-      // Return the response data
-      return response.data;
-    }
-  );
 
   const handleRemoveImage = (setFieldValue) => {
     setSelectedImage(null);
     setFieldValue("image", "");
   };
+
   const handleFile = (setFieldValue, e) => {
     setFieldValue("image", e.currentTarget.files[0]);
-    setSelectedImage(e.currentTarget.files[0]);
+    setSelectedImage(URL?.createObjectURL(e.currentTarget.files[0]));
   }
+
+  const multipalSelect = () => {
+
+  }
+
+  const data = [!null, undefined].includes(id) ? "" : id;
 
   return (
     <div
@@ -102,85 +94,44 @@ export default function Create() {
       <div className="flex flex-col">
         <Header title="Add Teacher" />
         <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-6 bg-white">
+          <div className="rounded-lg border shadow-sm">
+            <Formik
+              initialValues={initialValues(fieldConfig, data)}
+              validationSchema={validationSchema}
+              onSubmit={(values, { resetForm }) => {
+                onSubmit(values);
+                // resetForm();
+                // onRequestClose();
+              }}
+            >
+              {({ setFieldValue, isSubmitting, values }) => (
+                <Form className="dark:bg-black-800 dark:text-white-800 text-black">
+                  <div className={window?.innerWidth < 912 ? 'grid mt-3' : 'row mt-3 mr-3 ml-3 mb-4'} >
+                    <InputFields
+                      fieldConfig={fieldConfig}
+                      handleFile={handleFile}
+                      styleInput={styleInput}
+                      setFieldValue={setFieldValue}
+                      img={selectedImage || ''}
+                      handleRemoveImage={handleRemoveImage}
+                      multipalSelect={multipalSelect}
+                      values={values}
+                    />
+                  </div>
 
-            <div className="rounded-lg border shadow-sm">
-
-              <Formik
-                initialValues={initialValues}
-                validationSchema={validationSchema}
-                onSubmit={(values, { resetForm }) => {
-                  onSubmit(values);
-                  // resetForm();
-                  // onRequestClose();
-                }}
-              >
-                {({ setFieldValue }) => (
-                  <Form className='form-column'>
-                    {/* <div class="container"> */}
-                    <div class="row">
-                      
-                      <div className="grid gap-4 p-4 md:gap-6 md:p-8">
-                        <div className="grid gap-2">
-                          <Label className="text-sm"> Teacher Name</Label>
-                          <Field type="text" id="name" name="name" placeholder="Enter firstName" className={styleInput} />
-                          <ErrorMessage name="name" component="div" className="error-message" />
-                        </div>
-                        <div className="grid gap-2">
-                          <Label htmlFor="image">Image</Label>
-                          <input type="file" id="image" name="image" accept=".jpg, .jpeg, .png" className={styleInput}
-                            onChange={(event) => {
-                              handleFile(setFieldValue, event)
-                            }}
-                          />
-                          <ErrorMessage name="image" component="div" className="error-message" />
-                        </div>
-
-                        {selectedImage &&
-                          <div className="border border-dashed border-gray-200 rounded-lg w-[350px] p-4 flex items-center ">
-                            <div className="relative w-[350px] h-[200px] sm:h-[250px] lg:h-[300px] xl:h-[250px] 2xl:h-[300px]">
-                              <img
-                                alt="Uploaded picture"
-                                className="object-cover rounded-lg"
-                                height="250"
-                                src={URL.createObjectURL(selectedImage)}
-                                style={{
-                                  aspectRatio: "400/250",
-                                  objectFit: "cover",
-                                }}
-                                width="400"
-                              />
-                              <Button className="absolute top-2 right-2 bg-black text-white" size="icon" variant="outline" type="button" onClick={() => handleRemoveImage(setFieldValue)}>
-                                <TrashIcon className="h-4 w-4" />
-                                <span className="sr-only" >Delete</span>
-                              </Button>
-                            </div>
-                          </div>}
-
-                        <div className="grid gap-2">
-                          <Label className="text-sm">Description</Label>
-                          <Field as="textarea" id="description" name="description" className={'min-h-[100px] ' + styleInput} placeholder="Enter your description" />
-                          <ErrorMessage name="description" component="div" className="error-message" />
-                        </div>
-
-
-                        <div className="flex items-center space-x-2">
-                          <Button type="submit" className="ml-auto bg-black text-white" size="sm">Submit</Button>
-                          {isLoading &&
-                            <Button size="icon" variant="outline">
-                              <RefreshCwIcon className="animate-spin h-4 w-4" />
-                              <span className="sr-only">Loading</span>
-                            </Button>
-                          }
-                        </div>
-
-
-                      </div>
-        
-                    </div>
-                  </Form>
-                )}
-              </Formik>
-            </div>
+                  <div className="flex items-center m-4">
+                    <Button type="submit" disabled={isLoading} className="ml-auto bg-black text-white" size="sm">Submit</Button>
+                    {isLoading &&
+                      <Button size="icon" variant="outline">
+                        <RefreshCwIcon className="animate-spin h-4 w-4" />
+                        <span className="sr-only">Loading</span>
+                      </Button>
+                    }
+                  </div>
+                </Form>
+              )}
+            </Formik>
+          </div>
         </main >
       </div>
     </div>

@@ -1,3 +1,7 @@
 .customHide {
 	display: none !important;
 }
+
+.sideBar-bg-color {
+	background-color: rgb(0 25 77);
+}

@@ -85,3 +85,48 @@ a:hover {
 .width_100 {
     width: 100px;
 }
+
+.bg-green {
+ background-color: #4CAF50 !important;
+}
+
+.bg-skyBlue {
+    background-color: #2196F3 !important;
+}
+
+.bg-red {
+    background-color: #F44336 !important;
+}
+
+.bg-dark-orchid {
+    background-color: #9c27b0 !important;
+}
+
+.bf-light-blush {
+    background-color: #FEF2F2 !important;
+}
+
+.bg-light-cream { 
+    background-color: #ECFDF5 !important;
+}
+.bg-light-blue {
+    background-color: #EFF6FF !important;
+}
+
+.bg-light-red {
+    background-color: #FEF9C3 !important;
+}
+
+.symbol-color-red {
+    background-color: #f87171 !important;
+}
+.symbol-green {
+    background-color: #10B981 !important;
+}
+
+.symbol-blue {
+    background-color: #3B82F6 !important;
+}
+.symbol-orange {
+    background-color: #F59E0B !important;
+}
