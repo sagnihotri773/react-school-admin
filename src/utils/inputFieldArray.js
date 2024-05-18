@@ -2,14 +2,14 @@ import React from 'react';
 import { Label } from "../components/ui/label";
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import { Button } from '../components/ui/button';
-import { styleInput, TrashIcon, RefreshCwIcon } from '../utils/utils';
-import { Input } from '../../src/components/ui/input'
-import { PlusIcon, UploadIcon } from '../utils/utils'
-import { styleInputTextarea } from '../utils/utils'
+import { styleInput, TrashIcon, RefreshCwIcon } from './utils';
+import { Input } from '../components/ui/input'
+import { PlusIcon, UploadIcon } from './utils'
+import { styleInputTextarea } from './utils'
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 
-export default function input(props) {
+export default function InputFieldArray(props) {
 
     const { fieldConfig, handleFile, setFieldValue, styleInput, img = "", handleRemoveImage, multipalSelect, values, filterButtonAction, filterButtonName = '' } = props;
     const handleCheckboxChange = () => {
@@ -28,7 +28,7 @@ export default function input(props) {
     return fieldConfig.map((field, i) => (
         <>
             {field?.header ?
-                <div className={`col-lg-7 ${field?.headerClass}`}>
+                <div className={`col-md-12 mt-4 ${field?.headerClass}`}>
                     <b className='h3 mb-4'> {field?.header} </b>
                 </div> : ""}
             {field?.newRow == 1 ?
@@ -87,7 +87,7 @@ export default function input(props) {
                         />
                         <Button as="label" type="button" className="ml-3 h-auto" variant="outline">
                             <UploadIcon className="h-4 w-4 mb-2" />&nbsp;
-                            <Label className={`text-sm ${field?.labelClass}`} for={field.name} name={field.name}>{field.label}</Label>
+                            <Label className={`text-sm ${field?.labelClass}`} name={field.name}>{field.label}</Label>
                             <Input className="sr-only" id="image" type="file" onChange={(event) => {
                                 handleFile(setFieldValue, event)
                             }} />

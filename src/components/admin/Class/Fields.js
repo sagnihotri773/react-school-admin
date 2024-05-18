@@ -18,10 +18,10 @@ export const filterFieldConfig = [
     {
         name: 'name',
         type: 'text',
-        label: 'Student Name',
+        label: 'Teacher Name',
         col: 'col-md-12 p-0',
         element: {
-            placeholder: "Student Name"
+            placeholder: "Teacher Name"
         },
         ErrorMessageShow: false,
     }, {
@@ -44,18 +44,6 @@ export const filterFieldConfig = [
         ],
         col: 'col-md-12 p-0',
         ErrorMessageShow: false,
-    },
-    {
-        name: 'status',
-        type: 'select',
-        label: 'Status',
-        options: [
-            { label: '--select--', value: '' },
-            { label: 'Active', value: 'Active' },
-            { label: 'In-Active', value: 'In-Active' },
-        ],
-        col: 'col-md-12 p-0',
-        ErrorMessageShow: false,
     }
 ];
 
@@ -69,7 +57,7 @@ export const fieldConfig = [
         col: 'col-md-6',
         accept: ".jpg, .jpeg, .png",
         header: 'Personal Details',
-        headerClass: "w-auto mt-2 mb-4 h-9 rounded-md",// text-white bg-[#00194d]
+        headerClass: "mb-2",
         images: UserImg,
         ErrorMessageShow: true,
 
@@ -106,6 +94,16 @@ export const fieldConfig = [
             placeholder: "6"
         },
     }, {
+        name: 'email',
+        type: 'email',
+        label: 'Email',
+        validation: Yup.string().email('Invalid email address').required('Email is required'),
+        ErrorMessageShow: true,
+        col: 'col-md-6',
+        element: {
+            placeholder: "example@gmail.com"
+        },
+    }, {
         name: 'gender',
         type: 'select',
         label: 'Gender',
@@ -118,15 +116,35 @@ export const fieldConfig = [
         ErrorMessageShow: true,
         col: 'col-md-6',
     }, {
-        name: 'caste',
-        type: 'text',
-        label: 'Caste',
-        validation: Yup.string().required('Student Caste is required'),
-        col: 'col-md-6',
+        name: 'class',
+        type: 'select',
+        label: 'Class',
+        options: className,
+        validation: Yup.string().required('Class is required'),
         ErrorMessageShow: true,
-
+        col: 'col-md-6',
+    }, {
+        name: 'Section',
+        type: 'select',
+        label: 'Section',
+        options: [
+            { label: '--Select--', value: '' },
+            { label: 'A', title: 'A' },
+            { label: 'B', title: 'B' },
+            { label: 'C', title: 'C' },
+            { label: 'D', title: 'D' }
+        ],
+        validation: Yup.string().required('Section are required'),
+        col: 'col-md-6',
+    }, {
+        name: 'phone',
+        type: 'tel',
+        label: 'Phone Number',
+        validation: Yup.string().matches(/^\d{10}$/, 'Invalid phone number').required('Phone Number is required'),
+        ErrorMessageShow: true,
+        col: 'col-md-6',
         element: {
-            placeholder: "Student Caste"
+            placeholder: "9876543210"
         },
     }, {
         name: 'bloodGroup',
@@ -156,38 +174,15 @@ export const fieldConfig = [
         ErrorMessageShow: true,
         accept: ".jpg, .jpeg, .png",
     }, {
-        name: 'email',
-        type: 'email',
-        label: 'Email',
-        // validation: Yup.string().email('Invalid email address').required('Email is required'),
-        ErrorMessageShow: false,
-        col: 'col-md-6',
-        element: {
-            placeholder: "example@gmail.com"
-        },
-    }, {
-        name: 'class',
-        type: 'select',
-        label: 'Class',
-        options: className,
-        validation: Yup.string().required('Class is required'),
+        name: 'address',
+        type: 'text',
+        label: 'Address',
+        validation: Yup.string().required('Address is required'),
         ErrorMessageShow: true,
         col: 'col-md-6',
-        header: 'Academic Infomation',
-        headerClass: "w-auto h-9 mt-4 mb-4 rounded-md", // text-white bg-[#00194d]
-    }, {
-        name: 'Section',
-        type: 'select',
-        label: 'Section',
-        options: [
-            { label: '--Select--', value: '' },
-            { label: 'A', title: 'A' },
-            { label: 'B', title: 'B' },
-            { label: 'C', title: 'C' },
-            { label: 'D', title: 'D' }
-        ],
-        validation: Yup.string().required('Section are required'),
-        col: 'col-md-6',
+        element: {
+            placeholder: "#123 sector 1 mohali"
+        },
     }, {
         name: 'fatherName',
         type: 'text',
@@ -198,49 +193,7 @@ export const fieldConfig = [
         element: {
             placeholder: "Father Name"
         },
-        header: 'Parent Infomation',
-        headerClass: "w-auto h-9 mt-4 mb-4 rounded-md",
-    }, {
-        name: 'phone',
-        type: 'tel',
-        label: 'Father Phone Number',
-        validation: Yup.string().matches(/^\d{10}$/, 'Invalid phone number').required('Father Phone Number is required'),
-        ErrorMessageShow: true,
-        col: 'col-md-6',
-        element: {
-            placeholder: "9876543210"
-        },
-    }, {
-        name: 'email',
-        type: 'email',
-        label: 'Father Email',
-        validation: Yup.string().email('Invalid email address').required('Email is required'),
-        ErrorMessageShow: false,
-        col: 'col-md-6',
-        element: {
-            placeholder: "example@gmail.com"
-        },
-    }, {
-        name: 'motherName',
-        type: 'text',
-        label: 'Mother Name',
-        validation: Yup.string().required('Mother Name is required'),
-        ErrorMessageShow: true,
-        col: 'col-md-6',
-        element: {
-            placeholder: "Mother Name"
-        },
-    }, {
-        name: 'address',
-        type: 'text',
-        label: 'Address',
-        validation: Yup.string().required('Address is required'),
-        ErrorMessageShow: true,
-        col: 'col-md-6',
-        element: {
-            placeholder: "#123 sector 1 mohali"
-        },
-    },
+    }
 ];
 
 // Define initial values for fields
@@ -264,3 +217,4 @@ export const validationSchema = Yup.object().shape(
         return acc;
     }, {})
 );
+

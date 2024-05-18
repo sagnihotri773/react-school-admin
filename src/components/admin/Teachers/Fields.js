@@ -18,13 +18,15 @@ export const fieldConfig = [
         accept: ".jpg, .jpeg, .png",
         header: 'Personal Details',
         headerClass: "mb-2",
-        images: UserImg
+        images: UserImg,
+        ErrorMessageShow: true,
     }, {
         name: 'teacherName',
         type: 'text',
         label: 'Name',
         validation: Yup.string().required('Teacher Name is required'),
         col: 'col-md-6',
+        ErrorMessageShow: true,
         newRow: 1
     }, {
         name: 'age',
@@ -32,12 +34,14 @@ export const fieldConfig = [
         label: 'Age',
         validation: Yup.number().positive('Age must be a positive number').required('Age is required'),
         col: 'col-md-6',
+        ErrorMessageShow: true,
     }, {
         name: 'email',
         type: 'email',
         label: 'Email',
         validation: Yup.string().email('Invalid email address').required('Email is required'),
         col: 'col-md-6',
+        ErrorMessageShow: true,
     }, {
         name: 'gender',
         type: 'select',
@@ -49,18 +53,21 @@ export const fieldConfig = [
         ],
         validation: Yup.string().required('Gender is required'),
         col: 'col-md-6',
+        ErrorMessageShow: true,
     }, {
         name: 'phoneNumber',
         type: 'tel',
         label: 'Phone Number',
         validation: Yup.string().matches(/^\d{10}$/, 'Invalid phone number').required('Phone Number is required'),
         col: 'col-md-6',
+        ErrorMessageShow: true,
     }, {
         name: 'qualification',
         type: 'text',
         label: 'Qualification',
         validation: Yup.string().required('Qualification is required'),
         col: 'col-md-6',
+        ErrorMessageShow: true,
     }, {
         name: 'bloodGroup',
         type: 'select',
@@ -77,11 +84,13 @@ export const fieldConfig = [
         ],
         validation: Yup.string().required('Blood Group is required'),
         col: 'col-md-6',
+        ErrorMessageShow: true,
     }, {
         name: 'adharCardImg',
         type: 'file',
         label: 'Adhar Card Image URL',
         col: 'col-md-6',
+        ErrorMessageShow: true,
         validation: Yup.mixed().required('Adhar Card Image URL is required'),
         accept: ".jpg, .jpeg, .png",
     }, {
@@ -90,12 +99,14 @@ export const fieldConfig = [
         label: 'Address',
         validation: Yup.string().required('Address is required'),
         col: 'col-md-6',
+        ErrorMessageShow: true,
     }, {
         name: 'fatherName',
         type: 'text',
         label: 'Father Name',
         validation: Yup.string().required('Father Name is required'),
         col: 'col-md-6',
+        ErrorMessageShow: true,
     }, {
         name: 'teacherClass',
         type: 'multipalSelect',
@@ -103,6 +114,7 @@ export const fieldConfig = [
         options: options,
         validation: Yup.array().min(1, "Please select at least one option").required("Please select at least one option"),
         col: 'col-md-6',
+        ErrorMessageShow: true,
         header: 'Offical Details',
         multipalSelect: true
     }, {
@@ -117,30 +129,35 @@ export const fieldConfig = [
         ],
         validation: Yup.string().required('Section are required'),
         col: 'col-md-6',
+        ErrorMessageShow: true,
     }, {
         name: 'skills',
         type: 'text',
         label: 'Skills',
         validation: Yup.string().required('Skills are required'),
         col: 'col-md-6',
+        ErrorMessageShow: true,
     }, {
         name: 'experience',
         type: 'number',
         label: 'Experience (years)',
         validation: Yup.number().positive('Experience must be a positive number').required('Experience is required'),
         col: 'col-md-6',
+        ErrorMessageShow: true,
     }, {
         name: 'teacherId',
         type: 'text',
         label: 'Teacher ID Number',
         validation: Yup.string().required('Teacher ID Number is required'),
         col: 'col-md-6',
+        ErrorMessageShow: true,
     }, {
         name: 'joiningDate',
         type: 'date',
         label: 'Joining Date',
         validation: Yup.date().required('Joining Date is required'),
         col: 'col-md-6',
+        ErrorMessageShow: true,
     }, {
         name: 'discription',
         type: 'textarea',

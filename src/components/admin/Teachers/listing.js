@@ -9,6 +9,8 @@ import { DropdownMenuTrigger, DropdownMenuItem, DropdownMenuContent, DropdownMen
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { ArrayItems } from '../../../utils/utils';
+import Layout from '../layout/Layout';
+import TableActionButton from '../../ui/reusableComponents/tableActionButton';
 
 
 const data = [
@@ -121,7 +123,6 @@ export default function TeacherList() {
         navigate(value);
     };
 
-
     const btnRender = () => {
 
         return !isMobile ?
@@ -157,132 +158,90 @@ export default function TeacherList() {
     }
 
     const handleTeacherActions = () => {
+    }
 
+    const deleteRecord = () => {
+        
     }
 
     return (
-        <div
-            key="1"
-            className={`${!isMobile ? 'grid' : ''} min-h-screen w-full overflow-hidden lg:grid-cols-[210px_1fr] theam_bg`} >
-            <Sidebar />
-            <div className="flex flex-col">
-                <Header title="Teachers" />
-                <div className="flex flex-col w-full">
-                    <main className='flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-6 bg-white  dark:bg-gray-800 dark:text-white-800' >
-                        <Card className="w-full">
-                            <CardHeader>
-                                <div className="flex items-center">
-                                    <h1 className="font-semibold  md:text-2xl text-black">Teachers</h1>
-                                    {btnRender()}
-                                </div>
-                            </CardHeader>
-                            <CardContent className="p-0">
-                                <div className="overflow-auto">
-                                    <Table>
-                                        <TableHeader>
-                                            <TableRow>
-                                                <TableHead className="text-black w-8 leading-none">
-                                                    <Checkbox
-                                                        id="teachers"
-                                                        checked={selectAll}
-                                                        onClick={handleSelectAllChange}
-                                                    />
-                                                </TableHead>
-                                                {hTitls?.length > 0 ? hTitls?.map((x) => (
-                                                        <TableHead className="text-left cursor-pointer">
-                                                                {x.title}
-                                                        </TableHead>
-                                                )) : ''}
-                                                {/* <TableHead>Email</TableHead>
-                                                <TableHead>Class Incharge</TableHead>
-                                                <TableHead>Address</TableHead>
-                                                <TableHead>Gender</TableHead>
-                                                <TableHead>Phone</TableHead>
-                                                <TableHead>Designation</TableHead>
-                                                <TableHead>Subjects</TableHead> */}
-                                                {/* <TableHead className="w-8" /> */}
-                                            </TableRow>
-                                        </TableHeader>
-                                        <TableBody>
-                                            {data.length > 0 ? data?.map((record) => (
-                                                <TableRow className="hover:bg-gray-100">
-                                                    <TableCell className="w-8 leading-none">
-                                                        <Checkbox id="teachers_1" checked={selectedItems.includes(record.id)} onClick={(e) => handleCheckboxChange(record.id)} />
-                                                    </TableCell>
-                                                    <TableCell className="font-medium">{record.teacherName}</TableCell>
-                                                    <TableCell className="width_100">{record.email}</TableCell>
-                                                    <TableCell>{ArrayItems(record.teacherClass)}</TableCell>
-                                                    <TableCell>{record.address}</TableCell>
-                                                    <TableCell>{record.gender}</TableCell>
-                                                    <TableCell>{record.phoneNumber}</TableCell>
-                                                    <TableCell>{ArrayItems(record.subjects)}</TableCell>
-                                                    <TableCell className="w-8">
-                                                        <DropdownMenu>
-                                                            <DropdownMenuTrigger asChild>
-                                                                <Button
-                                                                    className="rounded-full border border-gray-200 w-8 h-8 dark:border-gray-800"
-                                                                    size="icon"
-                                                                    variant="ghost"
-                                                                >
-                                                                    <MoreHorizontalIcon className="w-4 h-4" />
-                                                                    <span className="sr-only">More</span>
-                                                                </Button>
-                                                            </DropdownMenuTrigger>
-                                                            <DropdownMenuContent align="end" className="dark:bg-white-800 dark:text-black-800 text-black">
-                                                                <DropdownMenuItem>View</DropdownMenuItem>
-                                                                <DropdownMenuItem onClick={(e) => routeRedirect(`/teacher/edit${record?.id}`)}>Edit</DropdownMenuItem>
-                                                                <DropdownMenuItem className="text-error">Delete</DropdownMenuItem>
-                                                            </DropdownMenuContent>
-                                                        </DropdownMenu>
-                                                    </TableCell>
-                                                </TableRow>
-                                            )) : "...Loading"}
-                                        </TableBody>
-                                    </Table>
-                                </div>
-                            </CardContent>
-                        </Card>
-                    </main>
-                </div>
-            </div>
-        </div>
-    )
-}
-
-function FileEditIcon(props) {
-    return (
-        <svg
-            {...props}
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
+        <Layout
+            isMobile={isMobile}
+            header={<Header title="Teacher Listing" />} // Pass your Header component
+            sidebar={<Sidebar />} // Pass your Sidebar component
         >
-            <path d="M4 13.5V4a2 2 0 0 1 2-2h8.5L20 7.5V20a2 2 0 0 1-2 2h-5.5" />
-            <polyline points="14 2 14 8 20 8" />
-            <path d="M10.42 12.61a2.1 2.1 0 1 1 2.97 2.97L7.95 21 4 22l.99-3.95 5.43-5.44Z" />
-        </svg>
+            <div className="flex flex-col w-full">
+                <main className='flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-6 bg-white  dark:bg-gray-800 dark:text-white-800' >
+                    <Card className="w-full">
+                        <CardHeader>
+                            <div className="flex items-center">
+                                <h1 className="font-semibold  md:text-2xl text-black">Teachers</h1>
+                                {btnRender()}
+                            </div>
+                        </CardHeader>
+                        <CardContent className="p-0">
+                            <div className="overflow-auto">
+                                <Table>
+                                    <TableHeader>
+                                        <TableRow>
+                                            <TableHead className="text-black w-8 leading-none">
+                                                <Checkbox
+                                                    id="teachers"
+                                                    checked={selectAll}
+                                                    onClick={handleSelectAllChange}
+                                                />
+                                            </TableHead>
+                                            {hTitls?.length > 0 ? hTitls?.map((x) => (
+                                                <TableHead className="text-left cursor-pointer">
+                                                    {x.title}
+                                                </TableHead>
+                                            )) : ''}
+                                        </TableRow>
+                                    </TableHeader>
+                                    <TableBody>
+                                        {data.length > 0 ? data?.map((record) => (
+                                            <TableRow className="hover:bg-gray-100">
+                                                <TableCell className="w-8 leading-none">
+                                                    <Checkbox id="teachers_1" checked={selectedItems.includes(record.id)} onClick={(e) => handleCheckboxChange(record.id)} />
+                                                </TableCell>
+                                                <TableCell className="font-medium">{record.teacherName}</TableCell>
+                                                <TableCell className="width_100">{record.email}</TableCell>
+                                                <TableCell>{ArrayItems(record.teacherClass)}</TableCell>
+                                                <TableCell>{record.address}</TableCell>
+                                                <TableCell>{record.gender}</TableCell>
+                                                <TableCell>{record.phoneNumber}</TableCell>
+                                                <TableCell>{ArrayItems(record.subjects)}</TableCell>
+                                                <TableCell className="w-8">
+                                                    <TableActionButton viewPageUrl={`/teacher/view-profile/${record.id}`} editPageUrl={`/teacher/edit${record?.id}`} id={record.id} deleteRecord={deleteRecord} viewBtn={true} editBtn={true} deleteBtn={true}/>
+                                                </TableCell>
+                                                {/* <TableCell className="w-8">
+                                                    <DropdownMenu>
+                                                        <DropdownMenuTrigger asChild>
+                                                            <Button
+                                                                className="rounded-full border border-gray-200 w-8 h-8 dark:border-gray-800"
+                                                                size="icon"
+                                                                variant="ghost"
+                                                            >
+                                                                <MoreHorizontalIcon className="w-4 h-4" />
+                                                                <span className="sr-only">More</span>
+                                                            </Button>
+                                                        </DropdownMenuTrigger>
+                                                        <DropdownMenuContent align="end" className="dark:bg-white-800 dark:text-black-800 text-black">
+                                                            <DropdownMenuItem>View</DropdownMenuItem>
+                                                            <DropdownMenuItem onClick={(e) => routeRedirect(`/teacher/edit${record?.id}`)}>Edit</DropdownMenuItem>
+                                                            <DropdownMenuItem className="text-error">Delete</DropdownMenuItem>
+                                                        </DropdownMenuContent>
+                                                    </DropdownMenu>
+                                                </TableCell> */}
+                                            </TableRow>
+                                        )) : "...Loading"}
+                                    </TableBody>
+                                </Table>
+                            </div>
+                        </CardContent>
+                    </Card>
+                </main>
+            </div>
+        </Layout>
     )
 }
-
-
-
-// <TableCell className="flex gap-2 justify-end">
-// <Button aria-label="Edit" size="icon" variant="ghost">
-//   <FileEditIcon className="h-4 w-4" />
-//   <span className="sr-only">Edit</span>
-// </Button>
-// <Button aria-label="Delete" size="icon" variant="ghost">
-//   <TrashIcon className="h-4 w-4" />
-//   <span className="sr-only">Delete</span>
-// </Button>
-// <Button aria-label="View" size="icon" variant="ghost">
-//   <EyeIcon className="h-4 w-4" />
-//   <span className="sr-only">View</span>
-// </Button>
-// </TableCell>

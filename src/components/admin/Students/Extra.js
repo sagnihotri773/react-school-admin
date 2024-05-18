@@ -47,12 +47,12 @@ export const data = getStudentLocalData ;
 
 export const hTitls = [
     { title: 'Name', value: 'Name' },
+    { title: 'Image', value: 'Image'},
     { title: 'Email', value: 'Email' },
     { title: 'Class', value: 'Class' },
     { title: 'Address', value: 'Address' },
     { title: 'Gender', value: 'Gender' },
     { title: 'Phone', value: 'Phone' },
-    { title: 'Designation', value: 'Designation' },
-    { title: '', value: '' },
+    { title: 'Action', value: 'Action' },
 ]
 

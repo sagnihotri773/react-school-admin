@@ -35,6 +35,7 @@ export default function Create() {
   const onSubmit = (values) => {
     setIsLoading(true);
     console.log('values', values);
+    debugger
     localStorage.setItem('data', JSON.stringify(values))
     const newEntry = { id: uuidv4(), values };
     setFormData([...formData, newEntry]);

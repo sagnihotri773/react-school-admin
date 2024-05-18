@@ -8,6 +8,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { fieldConfig, initialValues, validationSchema } from './Fields';
 import InputFields from '../../../utils/input';
 import { v4 as uuidv4 } from 'uuid';
+import Layout from '../layout/Layout';
 
 const d = { 'id': 1, "image": 'https://fastly.picsum.photos/id/1064/536/354.jpg?hmac=3m2mR2AP_ciBQdwJZYjqlZAdaBltgQkmiKbK6m6fLAA', "teacherName": "shubham agnihotri", "age": 34, "email": "agnihotrishubham8055@gmail.com", "gender": "male", "phoneNumber": "7009764092", "qualification": "test", "bloodGroup": "AB+", "adharCardImg": "", "address": "vpo rangilpur", "fatherName": "sdsd", "teacherClass": [1, 2, 3], "Section": "C", "skills": "next js , bootstrap, Next js, git hub, firebase, API integration , material ui, ", "experience": 34, "teacherId": "sdsdsd", "joiningDate": "2024-05-10" }
 
@@ -36,17 +37,13 @@ export default function Create() {
     setIsLoading(true);
     console.log('values', values);
     // localStorage.setItem('data', JSON.stringify(values))
-    const newEntry = {...values, id: uuidv4() };
+    const newEntry = { ...values, id: uuidv4() };
     setFormData([...formData, newEntry]);
 
     try {
       // Retrieve existing data from local storage or initialize empty array
       const existingData = JSON.parse(localStorage.getItem('student')) || [];
-
-      // Add new form data to the array
       existingData.push(newEntry);
-
-      // Save updated data back to local storage
       localStorage.setItem('student', JSON.stringify(existingData));
       setIsLoading(false);
       navigate('/students/listing');
@@ -54,20 +51,6 @@ export default function Create() {
     } catch (error) {
       console.error('Error saving form data:', error);
     }
-
-    // var formDataNew = new FormData();
-    // console.log("value", value);
-    // formDataNew.append('image', value.image);
-    // formDataNew.append('name', value.name);
-    // formDataNew.append('description', value.description);
-
-    // mutation.mutate(formDataNew);
-    // if (mutation.isError) {
-    //   let errorMessage = ReturnError(mutation.error.response);
-    //   console.log("errorMessage", errorMessage);
-    //   navigate('/');
-    //   showErrorToast(errorMessage);
-    // }
   }
 
   const handleRemoveImage = (setFieldValue) => {
@@ -80,60 +63,51 @@ export default function Create() {
     setSelectedImage(URL?.createObjectURL(e.currentTarget.files[0]));
   }
 
-  const multipalSelect = () => {
-
-  }
-
   const data = [!null, undefined].includes(id) ? "" : id;
 
   return (
-    <div
-      key="1"
-      className="grid min-h-screen w-full overflow-hidden lg:grid-cols-[210px_1fr] theam_bg" >
-      <Sidebar />
-      <div className="flex flex-col">
-        <Header title="Add Teacher" />
-        <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-6 bg-white">
-          <div className="rounded-lg border shadow-sm">
-            <Formik
-              initialValues={initialValues(fieldConfig, data)}
-              validationSchema={validationSchema}
-              onSubmit={(values, { resetForm }) => {
-                onSubmit(values);
-                // resetForm();
-                // onRequestClose();
-              }}
-            >
-              {({ setFieldValue, isSubmitting, values }) => (
-                <Form className="dark:bg-black-800 dark:text-white-800 text-black">
-                  <div className={window?.innerWidth < 912 ? 'grid mt-3' : 'row mt-3 mr-3 ml-3 mb-4'} >
-                    <InputFields
-                      fieldConfig={fieldConfig}
-                      handleFile={handleFile}
-                      styleInput={styleInput}
-                      setFieldValue={setFieldValue}
-                      img={selectedImage || ''}
-                      handleRemoveImage={handleRemoveImage}
-                      multipalSelect={multipalSelect}
-                      values={values}
-                    />
-                  </div>
+    <Layout
+      header={<Header title="Add Students" />} // Pass your Header component
+      sidebar={<Sidebar />} // Pass your Sidebar component
+    >
+      <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-6 bg-white">
+        <div className="rounded-lg border shadow-sm">
+          <Formik
+            initialValues={initialValues(fieldConfig, data)}
+            validationSchema={validationSchema}
+            onSubmit={(values, { resetForm }) => {
+              onSubmit(values);
+            }}
+          >
+            {({ setFieldValue, isSubmitting, values }) => (
+              <Form className="dark:bg-black-800 dark:text-white-800 text-black">
+                <div className={window?.innerWidth < 912 ? 'grid mt-3' : 'row mt-3 mr-3 ml-3 mb-4'} >
+                  <InputFields
+                    fieldConfig={fieldConfig}
+                    handleFile={handleFile}
+                    styleInput={styleInput}
+                    setFieldValue={setFieldValue}
+                    img={selectedImage || ''}
+                    handleRemoveImage={handleRemoveImage}
+                    // multipalSelect={multipalSelect}
+                    values={values}
+                  />
+                </div>
 
-                  <div className="flex items-center m-4">
-                    <Button type="submit" disabled={isLoading} className="ml-auto bg-black text-white" size="sm">Submit</Button>
-                    {isLoading &&
-                      <Button size="icon" variant="outline">
-                        <RefreshCwIcon className="animate-spin h-4 w-4" />
-                        <span className="sr-only">Loading</span>
-                      </Button>
-                    }
-                  </div>
-                </Form>
-              )}
-            </Formik>
-          </div>
-        </main >
-      </div>
-    </div>
+                <div className="flex items-center m-4">
+                  <Button type="submit" disabled={isLoading} className="ml-auto bg-black text-white" size="sm">Submit</Button>
+
+                  {isLoading &&
+                    <Button size="icon" variant="outline">
+                      <RefreshCwIcon className="animate-spin h-4 w-4" />
+                    </Button>
+                  }
+                </div>
+              </Form>
+            )}
+          </Formik>
+        </div>
+      </main >
+    </Layout >
   )
 }

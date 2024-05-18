@@ -1,4 +1,4 @@
-import { HomeIcon, UsersIcon, Badge, ShoppingCartIcon, PackageIcon, } from './utils'
+import { HomeIcon, UsersIcon, Badge, ShoppingCartIcon, PackageIcon, ClapperboardIcon } from './utils'
 // export const data = [
 //     { id: 1, displayValue: "Dashboard", path: '/dashboard', icon: <HomeIcon className="h-4 w-4" /> },
 //     { id: 2, displayValue: "Teachers", path: '/teacher/listing', icon: <UsersIcon className="h-4 w-4" /> },
@@ -9,7 +9,7 @@ import { HomeIcon, UsersIcon, Badge, ShoppingCartIcon, PackageIcon, } from './ut
 //     { id: 6, displayValue: "Users", path: '/users', icon: <UsersIcon className="h-4 w-4" /> },
 //     //  { id: 6, displayValue: "Users", path: '/Users', icon: <LineChartIcon className="h-4 w-4" /> },
 // ]
-const menuItems = [
+export const MenuItems = [
     {
         label: 'Dashboard',
         icon: <HomeIcon className="h-4 w-4" />,
@@ -56,73 +56,10 @@ const menuItems = [
         sub: true,
         submenu: [
             {
-                label: 'Pending Orders',
+                label: 'Assign Class Teacher',
                 icon: 'icon-pending',
-                link: '/pending-orders'
+                link: '/assign-teacher-listing'
             },
-            {
-                label: 'Completed Orders',
-                icon: 'icon-completed',
-                link: '/completed-orders'
-            },
-            {
-                label: 'Cancelled Orders',
-                icon: 'icon-cancelled',
-                link: '/cancelled-orders'
-            }
-        ]
-    },
-    {
-        label: 'Teachers',
-        icon: <UsersIcon className="h-4 w-4" />,
-        link: '/teacher/listing',
-        sub: true,
-        submenu: [
-            {
-                label: 'Pending Orders',
-                icon: 'icon-pending',
-                link: '/pending-orders'
-            },
-            {
-                label: 'Completed Orders',
-                icon: 'icon-completed',
-                link: '/completed-orders'
-            },
-            {
-                label: 'Cancelled Orders',
-                icon: 'icon-cancelled',
-                link: '/cancelled-orders'
-            }
-        ]
-    },{
-        label: 'Teachers',
-        icon: <UsersIcon className="h-4 w-4" />,
-        link: '/teacher/listing',
-        sub: true,
-        submenu: [
-            {
-                label: 'Pending Orders',
-                icon: 'icon-pending',
-                link: '/pending-orders'
-            },
-            {
-                label: 'Completed Orders',
-                icon: 'icon-completed',
-                link: '/completed-orders'
-            },
-            {
-                label: 'Cancelled Orders',
-                icon: 'icon-cancelled',
-                link: '/cancelled-orders'
-            }
-        ]
-    },
-    {
-        label: 'Teachers',
-        icon: <UsersIcon className="h-4 w-4" />,
-        link: '/teacher/listing',
-        sub: true,
-        submenu: [
             {
                 label: 'Pending Orders',
                 icon: 'icon-pending',
@@ -141,15 +78,12 @@ const menuItems = [
         ]
     },
     // {
-    //     label: 'Class List',
-    //     icon: 'icon-class-list',
-    //     link: '/class-list' // Direct link without submenu
+    //     label: 'Class',
+    //     icon: <ClapperboardIcon className="h-4 w-4" />,
+    //     link: '/assign-teacher-listing', // Direct link without submenu
+    //     sub: true,
+    //     submenu: [
+           
+    //     ]
     // },
-    // {
-    //     label: 'Add New Class',
-    //     icon: 'icon-add-class',
-    //     link: '/add-class' // Direct link without submenu
-    // }
-];
-
-export default menuItems;
+]; 

@@ -60,41 +60,4 @@ const filterOtions = () => {
 export default filterOtions;
 
 
-
-// import React from 'react';
-
-// export default function filterOtions() {
-//     return (
-//         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-//             <div className="space-y-2">
-//                 <Label htmlFor="name">Name</Label>
-//                 <Input id="name" placeholder="Search by name" type="text" />
-//             </div>
-//             <div className="space-y-2">
-//                 <Label htmlFor="section">Section</Label>
-//                 <Select id="section">
-//                     <SelectTrigger className="w-full">
-//                         <SelectValue placeholder="Select section" />
-//                     </SelectTrigger>
-//                     <SelectContent>
-//                         <SelectItem value="section1">Section 1</SelectItem>
-//                         <SelectItem value="section2">Section 2</SelectItem>
-//                         <SelectItem value="section3">Section 3</SelectItem>
-//                     </SelectContent>
-//                 </Select>
-//             </div>
-//             <div className="space-y-2">
-//                 <Label htmlFor="status">Status</Label>
-//                 <Select id="status">
-//                     <SelectTrigger className="w-full">
-//                         <SelectValue placeholder="Select status" />
-//                     </SelectTrigger>
-//                     <SelectContent>
-//                         <SelectItem value="active">Active</SelectItem>
-//                         <SelectItem value="inactive">Inactive</SelectItem>
-//                     </SelectContent>
-//                 </Select>
-//             </div>
-//         </div>
-//     )
-// }
+ 

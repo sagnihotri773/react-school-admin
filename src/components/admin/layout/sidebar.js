@@ -3,7 +3,7 @@ import { Badge } from "../../ui/badge"
 import { Link, useLocation } from "react-router-dom";
 import { GraduationCapIcon, HomeIcon, LineChartIcon, PackageIcon, ShoppingCartIcon, UsersIcon, ChevronRightIcon, isMobile } from '../../../utils/utils'
 import { CollapsibleTrigger, CollapsibleContent, Collapsible } from "../../ui/collapsible";
-import menuItems from '../../../utils/menus';
+import { MenuItems } from '../../../utils/menus';
 import './sidebar.css'
 
 export const data = [
@@ -31,7 +31,7 @@ const Sidebar = () => {
         </div>
         <div className="flex-1">
           <nav className="grid items-start text-sm font-medium ">
-            {menuItems.map((x, index) => (
+            {MenuItems.map((x, index) => (
               <Collapsible className="grid gap-1">
                 <CollapsibleTrigger className={`flex items-center gap-2 rounded-md py-2 [&[data-state=open]>svg]:rotate-90 ${!x.sub && 'pr-3'}`} style={{ outline: 'none' }}>
                   <Link
@@ -41,14 +41,14 @@ const Sidebar = () => {
                     {x.label}
                     {x.count}
                   </Link>
-                  {x.sub && <ChevronRightIcon className="ml-auto h-4 w-4 transition-all" />}
+                  {x.sub && <ChevronRightIcon className="ml-auto mr-2 h-4 w-4 transition-all" />}
 
                 </CollapsibleTrigger>
                 {x.submenu?.map((sub) => (
                   <CollapsibleContent className="grid gap-1 pl-6">
                     <Link
                       className="flex items-center gap-2 rounded-md px-3 py-2 hover:bg-gray-800 transition-colors"
-                      to={x.link}
+                      to={sub.link}
                     >
                       {sub.label}
                     </Link>

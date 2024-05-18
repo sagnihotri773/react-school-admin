@@ -87,7 +87,7 @@ a:hover {
 }
 
 .bg-green {
- background-color: #4CAF50 !important;
+    background-color: #4CAF50 !important;
 }
 
 .bg-skyBlue {
@@ -106,9 +106,10 @@ a:hover {
     background-color: #FEF2F2 !important;
 }
 
-.bg-light-cream { 
+.bg-light-cream {
     background-color: #ECFDF5 !important;
 }
+
 .bg-light-blue {
     background-color: #EFF6FF !important;
 }
@@ -120,6 +121,7 @@ a:hover {
 .symbol-color-red {
     background-color: #f87171 !important;
 }
+
 .symbol-green {
     background-color: #10B981 !important;
 }
@@ -127,6 +129,23 @@ a:hover {
 .symbol-blue {
     background-color: #3B82F6 !important;
 }
+
 .symbol-orange {
     background-color: #F59E0B !important;
+}
+
+.slide-in-element {
+    animation: slideInFromLeft 1s ease normal;
+}
+
+@keyframes slideInFromLeft {
+    0% {
+        transform: translateY(30%);
+    }
+    50% {
+        transform: translateY(20%);
+    }
+    100% {
+        transform: translateY(0);
+    }
 }
