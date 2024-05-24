@@ -1,14 +1,6 @@
-import { HomeIcon, UsersIcon, Badge, ShoppingCartIcon, PackageIcon, ClapperboardIcon } from './utils'
-// export const data = [
-//     { id: 1, displayValue: "Dashboard", path: '/dashboard', icon: <HomeIcon className="h-4 w-4" /> },
-//     { id: 2, displayValue: "Teachers", path: '/teacher/listing', icon: <UsersIcon className="h-4 w-4" /> },
-//     { id: 3, displayValue: "Students", path: '/students/listing', icon: <UsersIcon className="h-4 w-4" /> },
+import { HomeIcon, UsersIcon, Badge, ShoppingCartIcon, PackageIcon, ClapperboardIcon, CreditCardIcon, SchoolIcon, LayoutDashboardIcon } from './utils'
 
-//     { id: 4, displayValue: "Orders", path: '/', icon: <ShoppingCartIcon className="h-4 w-4" />, count: <Badge className="ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full">12</Badge> },
-//     { id: 5, displayValue: "Products", path: '/products/listing', icon: <PackageIcon className="h-4 w-4" /> },
-//     { id: 6, displayValue: "Users", path: '/users', icon: <UsersIcon className="h-4 w-4" /> },
-//     //  { id: 6, displayValue: "Users", path: '/Users', icon: <LineChartIcon className="h-4 w-4" /> },
-// ]
+
 export const MenuItems = [
     {
         label: 'Dashboard',
@@ -17,36 +9,63 @@ export const MenuItems = [
         sub: false
     },
     {
-        label: 'Students',
-        icon: <UsersIcon className="h-4 w-4" />,
-        link: '/students/listing',
+        label: 'Admission Management',
+        icon: <LayoutDashboardIcon className="h-4 w-4" />,
         sub: true,
         submenu: [
             {
-                label: 'Student Information',
-                icon: 'icon-info',
-                link: '/student-information'
-            },
-            {
-                label: 'Student Promotion',
-                icon: 'icon-promotion',
-                link: '/student-promotion'
-            },
-            {
-                label: 'Student Transfer',
-                icon: 'icon-transfer',
-                link: '/student-transfer'
-            },
-            {
-                label: 'Student Birthday',
-                icon: 'icon-birthday',
-                link: '/student-birthday'
-            },
-            {
-                label: 'Student Info Report',
-                icon: 'icon-report',
-                link: '/student-info-report'
+                label: 'Add Student',
+                link: '/students/create',
+            }, {
+                subShow: true,
+                label: 'Admission Inquiries',
+                submenu: [
+                    {
+                        label: 'Mangae Inquiries',
+                        link: '/Inquiries-list',
+                    },
+                    {
+                        label: 'Send SMS To Inquiries',
+                        link: '/sms-to-inquiries',
+                    },
+                ]
             }
+        ],
+    },
+    {
+        label: 'Management Students',
+        icon: <SchoolIcon className="h-4 w-4" />,
+        // link: '/students/listing',
+        sub: true,
+        submenu: [
+            {
+                label: 'Student Listing',
+                link: '/students/listing',
+            },
+            {
+                label: 'Student Bulk Upload',
+                link: '/bulk-upload'
+            },
+            // {
+            //     label: 'Student Promotion',
+            //     icon: 'icon-promotion',
+            //     link: '/student-promotion'
+            // },
+            // {
+            //     label: 'Student Transfer',
+            //     icon: 'icon-transfer',
+            //     link: '/student-transfer'
+            // },
+            // {
+            //     label: 'Student Birthday',
+            //     icon: 'icon-birthday',
+            //     link: '/student-birthday'
+            // },
+            // {
+            //     label: 'Student Info Report',
+            //     icon: 'icon-report',
+            //     link: '/student-info-report'
+            // }
         ]
     },
     {
@@ -63,27 +82,24 @@ export const MenuItems = [
             {
                 label: 'Pending Orders',
                 icon: 'icon-pending',
-                link: '/pending-orders'
+                link: '/bulk-upload'
             },
-            {
-                label: 'Completed Orders',
-                icon: 'icon-completed',
-                link: '/completed-orders'
-            },
-            {
-                label: 'Cancelled Orders',
-                icon: 'icon-cancelled',
-                link: '/cancelled-orders'
-            }
+            // {
+            //     label: 'Completed Orders',
+            //     icon: 'icon-completed',
+            //     link: '/completed-orders'
+            // },
+            // {
+            //     label: 'Cancelled Orders',
+            //     icon: 'icon-cancelled',
+            //     link: '/cancelled-orders'
+            // }
         ]
     },
-    // {
-    //     label: 'Class',
-    //     icon: <ClapperboardIcon className="h-4 w-4" />,
-    //     link: '/assign-teacher-listing', // Direct link without submenu
-    //     sub: true,
-    //     submenu: [
-           
-    //     ]
-    // },
+    {
+        label: 'ID Cards',
+        icon: <CreditCardIcon className="h-4 w-4" />,
+        link: '/id-card', // Direct link without submenu
+
+    },
 ]; 

@@ -6,7 +6,7 @@ import { MenuItems } from '../../../utils/menus'
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import UserImg from '../../../media/download.png'
 import { CollapsibleTrigger, CollapsibleContent, Collapsible } from "../../ui/collapsible";
-import HeaderBreadcrumb from './HeaderBreadcrumb'
+// import { Nested } from './sidebar';
 
 const Header = (props) => {
     const [isOpen, setIsOpen] = useState(false);
@@ -32,7 +32,7 @@ const Header = (props) => {
                 <GraduationCapIcon className="h-6 w-6" />
                 {/* <span className="sr-only">Home</span> */}
             </Link>
-            <div className="flex-1">
+            <div className="flex-2">
                 <h1 className="font-semibold text-lg text-black">{props.title}</h1>
                 {/* <HeaderBreadcrumb breadcrumb={props.breadcrumb} /> */}
 
@@ -63,52 +63,21 @@ const Header = (props) => {
 
                             <div className="flex-1">
                                 <nav className="grid items-start text-sm font-medium text-black  mb-3">
-                                    {/* {MenuItems.map((x, index, array) => (
-                                        <Collapsible key={index} className={`grid gap-1 shadow-sm pl-3 rounded`}>
-                                            <CollapsibleTrigger className={`text-white flex items-center gap-2 rounded-md py-2 [&[data-state=open]>svg]:rotate-90 ${!x.sub && 'pr-3'}`} style={{ outline: 'none' }}>
-                                                <Link
-                                                    className={`flex items-center gap-2 rounded-md px-3 hover:bg-gray-800 transition-colors ${!x.sub ? 'w-100' : 'w-75'} ${routeName === x.link ? "" : ""}`}
-                                                    to={x.link} onClick={(e) => setActive(x.id)}>
-                                                    {x.icon}
-                                                    {x.label}
-                                                    {x.count}
-                                                </Link>
-                                                {x.sub && <ChevronRightIcon className="ml-auto h-4 w-4 transition-all mr-4" />}
-                                            </CollapsibleTrigger>
-                                            {x.submenu?.map((sub, index, array) => (
-                                                <CollapsibleContent className={`grid gap-1 pl-6`} >
-                                                    <Link
-                                                        className="text-white flex items-center gap-2 rounded-md px-3 py-2 hover:bg-gray-800 transition-colors"
-                                                        to={x.link}
-                                                    >
-                                                        {sub.label} + 55555
-                                                    </Link>
-                                                </CollapsibleContent>
-                                            ))}
-                                        </Collapsible>
-                                    ))} */}
                                     {MenuItems.map((x, index) => (
                                         <Collapsible className="grid gap-1">
                                             <CollapsibleTrigger className={`flex  text-white items-center gap-2 rounded-md py-2 [&[data-state=open]>svg]:rotate-90 ${!x.sub && 'pr-3'}`} style={{ outline: 'none' }}>
                                                 <Link
-                                                    className={`flex items-center gap-2 rounded-md px-3 hover:bg-gray-800 transition-colors ${!x.sub ? 'w-100' : 'w-75'} ${routeName === x.link ? "" : ""}`}
+                                                    className={`flex items-center gap-2 rounded-md px-3 transition-colors ${!x.sub ? 'w-100' : 'w-75'} ${routeName === x.link ? "" : ""}`}
                                                     to={x.link} onClick={(e) => setActive(x.id)}>
                                                     {x.icon}
                                                     {x.label}
                                                     {x.count}
                                                 </Link>
-                                                {x.sub && <ChevronRightIcon className="ml-auto mr-2 h-4 w-4 transition-all" />}
+                                                {x.sub && <ChevronRightIcon className="ml-auto mr-2 h-4 w-4 transition-all" > </ChevronRightIcon>}
 
                                             </CollapsibleTrigger>
                                             {x.submenu?.map((sub) => (
-                                                <CollapsibleContent className="grid gap-1 pl-6">
-                                                    <Link
-                                                        className="flex text-white items-center gap-2 rounded-md px-3 py-2 hover:bg-gray-800 transition-colors"
-                                                        to={sub.link}
-                                                    >
-                                                        {sub.label}
-                                                    </Link>
-                                                </CollapsibleContent>
+                                                Nested(x, sub)
                                             ))}
                                         </Collapsible>
 
@@ -149,3 +118,31 @@ const Header = (props) => {
 }
 
 export default Header;
+
+export const Nested = (x, sub) => {
+    return <CollapsibleContent className="grid gap-1 pl-4">
+        <Link
+            className="items-center gap-2 rounded-md pl-2 py-1 transition-colors text-white"
+            to={sub.link}
+        >
+            <Collapsible className="grid gap-1">
+                <CollapsibleTrigger className={`flex items-center gap-2 rounded-md [&[data-state=open]>svg]:rotate-90 ${!x.sub && 'pr-3'}`} style={{ outline: 'none' }}>
+                    <li> {sub.label} </li>
+                    {sub.subShow && <ChevronRightIcon className="ml-auto mr-2 h-4 w-4 transition-all" > </ChevronRightIcon>}
+                </CollapsibleTrigger>
+
+                <CollapsibleContent className="grid gap-1 pl-1">
+                    {sub?.submenu?.map((x) => (
+                        <Link
+                            className="items-center gap-2 rounded-md pl-3 py-1  transition-colors"
+                            to={x.link}
+                        >
+                            <li> {x.label} </li>
+                        </Link>
+                    ))}
+                </CollapsibleContent>
+
+            </Collapsible>
+        </Link>
+    </CollapsibleContent>
+}

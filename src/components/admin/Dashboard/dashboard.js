@@ -7,6 +7,7 @@ import { adminStudentDetails, adminFeeDetail, adminTeachersDetails } from './jso
 import Common from '../../../shared/common';
 import AdminDashboardControle from '../../../shared/adminDashboardControle';
 import { CollapsibleTrigger, CollapsibleContent, Collapsible } from "../../ui/collapsible";
+import Layout from '../layout/Layout';
 
 const Dashboard = () => {
     const [active, setActive] = useState(1);
@@ -25,11 +26,15 @@ const Dashboard = () => {
     // console.log("openFilter" , openFilter);
 
     return (
-        <div className="grid min-h-screen w-full overflow-hidden lg:grid-cols-[210px_1fr] theam_bg" >
+        <Layout
+        header={<Header title="Students Bulk Upload " />} // Pass your Header component
+        sidebar={<Sidebar />} // Pass your Sidebar component
+    >
+        {/* <div className="grid min-h-screen w-full overflow-hidden lg:grid-cols-[210px_1fr] theam_bg" >
             <Sidebar />
             <div className="flex flex-col">
                 <Header title="Dashboard" />
-                <div className="flex flex-col w-full">
+                <div className="flex flex-col w-full"> */}
                     <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-6">
 
                         <Collapsible className="grid gap-1 text-black bold">
@@ -90,9 +95,10 @@ const Dashboard = () => {
                             ))}
                         </div>
                     </main>
-                </div>
-            </div>
-        </div>
+                    </Layout>
+        //         </div>
+        //     </div>
+        // </div>
     )
 }
 export default Dashboard;

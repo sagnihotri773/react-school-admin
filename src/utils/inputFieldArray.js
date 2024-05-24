@@ -100,7 +100,7 @@ export default function InputFieldArray(props) {
                     </>
                     : (
                         <>
-                            <Label className={`text-sm ${field?.labelClass}`} name={field.name}>{field.label}</Label>
+                            <Lab el className={`text-sm ${field?.labelClass}`} name={field.name}>{field.label}</Lab>
                             <Field type={field.type} name={field.name} id={field.name} {...field?.element} className={styleInput} />
                         </>
                     )}

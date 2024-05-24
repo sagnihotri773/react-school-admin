@@ -19,6 +19,10 @@ const Sidebar = () => {
   const location = useLocation();
   const routeName = location?.pathname?.toLowerCase()
 
+
+
+
+
   return (
     //`border-r bg-gray-100/40 lg:block dark:bg-gray-800/40 hidden`
     <div className={`sideBar-bg-color text-white flex flex-col gap-4 ${isMobile && 'customHide'}`}>
@@ -35,24 +39,17 @@ const Sidebar = () => {
               <Collapsible className="grid gap-1">
                 <CollapsibleTrigger className={`flex items-center gap-2 rounded-md py-2 [&[data-state=open]>svg]:rotate-90 ${!x.sub && 'pr-3'}`} style={{ outline: 'none' }}>
                   <Link
-                    className={`flex items-center gap-2 rounded-md px-3 hover:bg-gray-800 transition-colors ${!x.sub ? 'w-100' : 'w-75'} ${routeName === x.link ? "" : ""}`}
+                    className={`flex items-center gap-2 rounded-md pl-2 hover:bg-gray-800 transition-colors w-100 ${routeName === x.link ? "" : ""}`}
                     to={x.link} onClick={(e) => setActive(x.id)}>
                     {x.icon}
                     {x.label}
                     {x.count}
                   </Link>
-                  {x.sub && <ChevronRightIcon className="ml-auto mr-2 h-4 w-4 transition-all" />}
+                  {x.sub && <ChevronRightIcon className="ml-auto mr-2 h-4 w-4 transition-all" > </ChevronRightIcon>}
 
                 </CollapsibleTrigger>
                 {x.submenu?.map((sub) => (
-                  <CollapsibleContent className="grid gap-1 pl-6">
-                    <Link
-                      className="flex items-center gap-2 rounded-md px-3 py-2 hover:bg-gray-800 transition-colors"
-                      to={sub.link}
-                    >
-                      {sub.label}
-                    </Link>
-                  </CollapsibleContent>
+                  Nested(x, sub)
                 ))}
               </Collapsible>
 
@@ -65,3 +62,31 @@ const Sidebar = () => {
 }
 
 export default Sidebar;
+
+export const Nested = (x, sub) => {
+  return <CollapsibleContent className="grid gap-1 pl-4">
+    <Link
+      className="items-center gap-2 rounded-md pl-2 py-1 hover:bg-transparent transition-colors"
+      to={sub.link}
+    >
+      <Collapsible className="grid gap-1">
+        <CollapsibleTrigger className={`flex items-center gap-2 rounded-md [&[data-state=open]>svg]:rotate-90 ${!x.sub && 'pr-3'}`} style={{ outline: 'none' }}>
+          <li> {sub.label} </li>
+          {sub.subShow && <ChevronRightIcon className="ml-auto mr-2 h-4 w-4 transition-all" > </ChevronRightIcon>}
+        </CollapsibleTrigger>
+
+        <CollapsibleContent className="grid gap-1 pl-1">
+          {sub?.submenu?.map((x) => (
+            <Link
+              className="items-center gap-2 rounded-md pl-3 py-1  transition-colors"
+              to={x.link}
+            >
+              <li> {x.label} </li>
+            </Link>
+          ))}
+        </CollapsibleContent>
+
+      </Collapsible>
+    </Link>
+  </CollapsibleContent>
+}

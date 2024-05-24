@@ -15,7 +15,7 @@ import UserImg from '../../../media/download.png'
 import TableListFilter from '../../ui/reusableComponents/TableListFilter';
 import ImageViewInTable from '../../ui/reusableComponents/imageViewInTable';
 import TableActionButton from '../../ui/reusableComponents/tableActionButton';
-import { setLocalData, getLocalData } from '../../../utils/comanFunction';
+import { setLocalData, getLocalData , decodeBase64Url } from '../../../utils/comanFunction';
 import Layout from '../layout/Layout';
 import HeaderBreadcrumb from '../layout/HeaderBreadcrumb';
 
@@ -72,7 +72,7 @@ export default function TeacherList() {
                 student?.class.toLowerCase().includes(filters?.class?.toLowerCase())
             );
         });
-        console.log("filtered" , filtered , openFilter);
+        console.log("filtered", filtered, openFilter);
         if (openFilter) {
             if (filtered.length > 0) {
                 setTableData(filtered);
@@ -100,9 +100,14 @@ export default function TeacherList() {
         setTableData(filterData);
     }
 
+    const showImg = (img) => {
+        // const decodesdUrl = decodeBase64Url(img);
+        return img
+    }
+
     return (
         <Layout
-            isMobile={isMobile}
+            isMobile={isMobile} 
             header={<Header title="Class Listing" breadcrumb={breadcrumb} />} // Pass your Header component
             sidebar={<Sidebar />} // Pass your Sidebar component
         >
@@ -119,7 +124,7 @@ export default function TeacherList() {
                     {/* card start */}
 
                     <Card className="w-full mb-5">
-                        <CardHeader title="Students" routeRedirect={routeRedirect} CreateBtn={'Add Student'} Import={'Import'} Export={'Export'} handleActions={handleActions} totalRecord={tableData.length} createUrl='/students/create' />
+                        <CardHeader title="Students" routeRedirect={routeRedirect} CreateBtn={'Add Student'} handleActions={handleActions} totalRecord={tableData.length} createUrl='/students/create' />
 
                         <CardContent className="p-0 ">
                             <div className="overflow-auto">
@@ -137,7 +142,7 @@ export default function TeacherList() {
                                                 </TableCell>
                                                 <TableCell className="font-medium">{record.name}</TableCell>
                                                 <TableCell>
-                                                    <ImageViewInTable src={UserImg} />
+                                                    <ImageViewInTable src={showImg(record?.profileimage || UserImg)} />
                                                 </TableCell>
                                                 <TableCell>{record.email}</TableCell>
                                                 <TableCell>{record.class}</TableCell>

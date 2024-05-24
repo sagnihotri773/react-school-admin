@@ -5,8 +5,10 @@ import Protected from "./Protected";
 import Dashboard from './components/admin/Dashboard/dashboard';
 import TeacherList from './components/admin/Teachers/listing';
 import CreateTeacher from './components/admin/Teachers/Create';
+
 import StudentCreate from './components/admin/Students/Create';
 import StudentList from './components/admin/Students/listing'
+import BulkUploadStudent from './components/admin/Students/BulkUploadStudent'
 
 import ClassList from './components/admin/Class/listing';
 import CreateClass from './components/admin/Class/Create';
@@ -31,6 +33,8 @@ export default function App() {
                     <Route exact path="/teacher/edit/:id?" element={<Protected Component={CreateTeacher} />} />
                     <Route exact path="/students/listing" element={<Protected Component={StudentList} />} />
                     <Route exact path="/students/create" element={<Protected Component={StudentCreate} />} />
+                    <Route exact path="/bulk-upload" element={<Protected Component={BulkUploadStudent} />} />
+
                     <Route exact path="/assign-teacher-listing" element={<Protected Component={ClassList} />} />
                     <Route exact path="/assign-teacher" element={<Protected Component={CreateClass} />} />
 

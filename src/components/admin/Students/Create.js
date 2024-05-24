@@ -9,8 +9,10 @@ import { fieldConfig, initialValues, validationSchema } from './Fields';
 import InputFields from '../../../utils/input';
 import { v4 as uuidv4 } from 'uuid';
 import Layout from '../layout/Layout';
+import { showSuccessToast } from '../../../utils/toastUtils';
+import UserImg from '../../../media/download.png'
 
-const d = { 'id': 1, "image": 'https://fastly.picsum.photos/id/1064/536/354.jpg?hmac=3m2mR2AP_ciBQdwJZYjqlZAdaBltgQkmiKbK6m6fLAA', "teacherName": "shubham agnihotri", "age": 34, "email": "agnihotrishubham8055@gmail.com", "gender": "male", "phoneNumber": "7009764092", "qualification": "test", "bloodGroup": "AB+", "adharCardImg": "", "address": "vpo rangilpur", "fatherName": "sdsd", "teacherClass": [1, 2, 3], "Section": "C", "skills": "next js , bootstrap, Next js, git hub, firebase, API integration , material ui, ", "experience": 34, "teacherId": "sdsdsd", "joiningDate": "2024-05-10" }
+const d = { 'id': 1, "image": UserImg, "teacherName": "shubham agnihotri", "age": 34, "email": "agnihotrishubham8055@gmail.com", "gender": "male", "phoneNumber": "7009764092", "qualification": "test", "bloodGroup": "AB+", "adharCardImg": "", "address": "vpo rangilpur", "fatherName": "sdsd", "teacherClass": [1, 2, 3], "Section": "C", "skills": "next js , bootstrap, Next js, git hub, firebase, API integration , material ui, ", "experience": 34, "teacherId": "sdsdsd", "joiningDate": "2024-05-10" }
 
 
 export default function Create() {
@@ -34,8 +36,9 @@ export default function Create() {
   }, []);
 
   const onSubmit = (values) => {
-    setIsLoading(true);
+    // setIsLoading(true);
     console.log('values', values);
+    // return
     // localStorage.setItem('data', JSON.stringify(values))
     const newEntry = { ...values, id: uuidv4() };
     setFormData([...formData, newEntry]);
@@ -46,6 +49,7 @@ export default function Create() {
       existingData.push(newEntry);
       localStorage.setItem('student', JSON.stringify(existingData));
       setIsLoading(false);
+      showSuccessToast('Student add succes')
       navigate('/students/listing');
       console.log('Form data saved successfully!');
     } catch (error) {
@@ -95,7 +99,8 @@ export default function Create() {
                 </div>
 
                 <div className="flex items-center m-4">
-                  <Button type="submit" disabled={isLoading} className="ml-auto bg-black text-white" size="sm">Submit</Button>
+                  <Button type="submit" disabled={isLoading} className="ml-auto bg-black  bg-[#fffff] border radious" size="sm">Cancel</Button>
+                  <Button type="submit" disabled={isLoading} className="ml-2 bg-black bg-[#088224] text-white hover:bg-[#0db634]" size="sm">Submit</Button>
 
                   {isLoading &&
                     <Button size="icon" variant="outline">
