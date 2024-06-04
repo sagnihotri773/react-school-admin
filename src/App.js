@@ -12,10 +12,17 @@ import BulkUploadStudent from './components/admin/Students/BulkUploadStudent'
 
 import ClassList from './components/admin/Class/listing';
 import CreateClass from './components/admin/Class/Create';
+// Addmission Request 
+import AddmissionRequestListing from './components/admin/RequestStudents/listing';
+
+import AddmissionInquiries from './components/admin/AdmissionInquiries/listing';
+import SmsInquiries from './components/admin/SmsInquiries/Index';
+
 
 import { Login } from './components/auth/Login';
 import { ToastContainer } from 'react-toastify';
 import './App.css';
+import NotFound from './utils/NotFound';
 
 
 const queryClient = new QueryClient();
@@ -24,7 +31,7 @@ const queryClient = new QueryClient();
 export default function App() {
 
     return (
-        <div>
+       
             <QueryClientProvider client={queryClient}>
                 <Routes >
                     <Route exact path="/dashboard" element={<Protected Component={Dashboard} />} />
@@ -34,16 +41,20 @@ export default function App() {
                     <Route exact path="/students/listing" element={<Protected Component={StudentList} />} />
                     <Route exact path="/students/create" element={<Protected Component={StudentCreate} />} />
                     <Route exact path="/bulk-upload" element={<Protected Component={BulkUploadStudent} />} />
+                    <Route exact path="/admission-request-listing" element={<Protected Component={AddmissionRequestListing} />} />
 
                     <Route exact path="/assign-teacher-listing" element={<Protected Component={ClassList} />} />
                     <Route exact path="/assign-teacher" element={<Protected Component={CreateClass} />} />
+                    <Route exact path="/admission-Inquiries" element={<Protected Component={AddmissionInquiries} />} />
+
+                    <Route exact path="/sms-to-inquiries" element={<Protected Component={SmsInquiries} />} />
 
                     <Route exact path="/" element={<Login />} />
-                    <Route path="*" element={<> Not Found</>} />
+                    <Route path="*" element={<NotFound/>} />
                 </Routes>
                 <ToastContainer />
             </QueryClientProvider>
-        </div>
+       
     )
 }
 

@@ -12,17 +12,25 @@ export const MenuItems = [
         label: 'Admission Management',
         icon: <LayoutDashboardIcon className="h-4 w-4" />,
         sub: true,
+        isOpen: false,
         submenu: [
             {
-                label: 'Add Student',
+                label: 'Admit Student',
                 link: '/students/create',
+            }, {
+                label: 'Admit Bulk Upload',
+                link: '/bulk-upload'
+            }, {
+                label: 'Admission Requests',
+                link: '/admission-request-listing',
             }, {
                 subShow: true,
                 label: 'Admission Inquiries',
+                isOpen: false,
                 submenu: [
                     {
                         label: 'Mangae Inquiries',
-                        link: '/Inquiries-list',
+                        link: '/admission-Inquiries',
                     },
                     {
                         label: 'Send SMS To Inquiries',
@@ -33,19 +41,17 @@ export const MenuItems = [
         ],
     },
     {
-        label: 'Management Students',
+        label: 'Student Management',
         icon: <SchoolIcon className="h-4 w-4" />,
         // link: '/students/listing',
         sub: true,
+        isOpen: false,
         submenu: [
             {
                 label: 'Student Listing',
                 link: '/students/listing',
             },
-            {
-                label: 'Student Bulk Upload',
-                link: '/bulk-upload'
-            },
+
             // {
             //     label: 'Student Promotion',
             //     icon: 'icon-promotion',

@@ -2,21 +2,19 @@ import React, { useRef, useState } from 'react';
 import { Label } from "../components/ui/label";
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import { Button } from '../components/ui/button';
-import { Input } from '../../src/components/ui/input'
-import { PlusIcon, UploadIcon, CameraIcon, PanelTopCloseIcon, CloudUploadIcon, isMobile } from '../utils/utils'
+import { PlusIcon, UploadIcon, CameraIcon, PanelTopCloseIcon, CloudUploadIcon, isMobile, styleInput } from '../utils/utils'
 import { styleInputTextarea } from '../utils/utils'
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import Webcam from 'react-webcam';
-import { PopoverTrigger, PopoverContent, Popover } from "../components/ui/popover"
-import { Link, redirect } from 'react-router-dom';
 
 export default function InputComp(props) {
-    const { fieldConfig, handleFile, setFieldValue, styleInput, img = "", handleRemoveImage, multipalSelect, values, filterButtonAction, filterButtonName = '' } = props;
+    const { fieldConfig, handleFile, setFieldValue, img = "", handleRemoveImage, multipalSelect, values, filterButtonAction, filterButtonName = '', suggestion, setCharCount } = props;
     const WebcamRef = useRef(null);
     const [isFacingUser, setIsFacingUser] = useState(true);
     const [showWebcam, setShowWebcam] = useState(false);
     const [captureImg, setCaptureImg] = useState('');
+
 
     const handleCheckboxChange = () => {
         if (img) {
@@ -61,7 +59,7 @@ export default function InputComp(props) {
     }
 
     const labelAll = (field) => {
-        return <> <Label className={`text-sm ${field?.labelClass}`} htmlFor={field.name} >{field.label}</Label> {field?.required && <strong className='text-danger'> * </strong> } </>
+        return <> <Label className={`text-sm ${field?.labelClass}`} htmlFor={field.name} >{field.label}</Label> {field?.required && <strong className='text-danger'> * </strong>} </>
     }
 
     return fieldConfig.map((field, i) => (
@@ -74,6 +72,9 @@ export default function InputComp(props) {
                 <div className='col-md-6 mt-3'> </div>
                 : ' '
             }
+
+
+
             <div className={field.col} key={field.name}>
 
                 {field.type === 'select' ? (
@@ -218,20 +219,35 @@ export default function InputComp(props) {
                                 </>}
                     </>
                     :
-                    field?.type === 'textarea' ?
+                    field?.type === 'textarea' && !suggestion ?
                         <>
                             {labelAll(field)}
                             {/* <Label className={`text-sm ${field?.labelClass}`} htmlFor={field.name} >{field.label}</Label> */}
                             <Field type={field.type} as={field.type} id={field.name} name={field.name} className={styleInputTextarea} {...field?.element} />
+                            {field.suggestion && suggestion}
                         </>
-                        : (
+                        :
+                        field?.type === 'textarea' && suggestion ?
                             <>
-                                {labelAll(field)}
+                                {labelAll(field)} 66
                                 {/* <Label className={`text-sm ${field?.labelClass}`} htmlFor={field.name} >{field.label}</Label> */}
-                                <Field type={field.type} as={CustomInputComponent} name={field.name} id={field.name} {...field?.element} className={styleInput} />
+                                <Field type={field.type} as={field.type} id={field.name} name={field.name} className={styleInputTextarea} {...field?.element} onChange={(e) => {
+                                    const value = e.target.value;
+                                    setFieldValue('sms', value);
+                                    setCharCount(value.length);
+                                }} />
+                                {field.suggestion && suggestion}
                             </>
-                        )}
+                            : (
+                                <>
+                                    {labelAll(field)}
+                                    {/* <Label className={`text-sm ${field?.labelClass}`} htmlFor={field.name} >{field.label}</Label> */}
+                                    <Field type={field.type} as={CustomInputComponent} name={field.name} id={field.name} {...field?.element} className={styleInput} />
+                                </>
+                            )}
                 {field?.ErrorMessageShow && <ErrorMessage name={field.name} component="div" className="error-message" />}
+
+
             </div>
         </>
     ))

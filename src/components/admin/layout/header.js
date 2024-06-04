@@ -120,29 +120,37 @@ const Header = (props) => {
 export default Header;
 
 export const Nested = (x, sub) => {
-    return <CollapsibleContent className="grid gap-1 pl-4">
-        <Link
-            className="items-center gap-2 rounded-md pl-2 py-1 transition-colors text-white"
-            to={sub.link}
-        >
-            <Collapsible className="grid gap-1">
-                <CollapsibleTrigger className={`flex items-center gap-2 rounded-md [&[data-state=open]>svg]:rotate-90 ${!x.sub && 'pr-3'}`} style={{ outline: 'none' }}>
-                    <li> {sub.label} </li>
-                    {sub.subShow && <ChevronRightIcon className="ml-auto mr-2 h-4 w-4 transition-all" > </ChevronRightIcon>}
-                </CollapsibleTrigger>
-
-                <CollapsibleContent className="grid gap-1 pl-1">
-                    {sub?.submenu?.map((x) => (
-                        <Link
-                            className="items-center gap-2 rounded-md pl-3 py-1  transition-colors"
-                            to={x.link}
-                        >
-                            <li> {x.label} </li>
-                        </Link>
-                    ))}
-                </CollapsibleContent>
-
-            </Collapsible>
-        </Link>
+    if (sub.subShow) {
+      return <CollapsibleContent className="grid gap-2 pl-4 py-1">
+        <Collapsible className="grid gap-1">
+          <CollapsibleTrigger className={`flex items-center gap-2 rounded-md hover:text-[#0056b3] hover:bg-transparent [&[data-state=open]>svg]:rotate-90 ${!x.sub && 'pr-3'}`} style={{ outline: 'none' }}>
+            <li className='text-white'> {sub.label} </li>
+            {sub.subShow && <ChevronRightIcon className="ml-auto mr-2 h-4 w-4 transition-all text-white" > </ChevronRightIcon>}
+          </CollapsibleTrigger>
+  
+          <CollapsibleContent className="grid gap-1 pl-1">
+            {sub?.submenu?.map((x) => (
+              <Link
+                className="items-center gap-2 rounded-md pl-2 py-1  transition-colors text-white"
+                to={x.link}
+              >
+                <li> {x.label}</li>
+              </Link>
+            ))}
+          </CollapsibleContent>
+  
+        </Collapsible>
+      </CollapsibleContent>
+    } return <CollapsibleContent className="grid gap-1 pl-4">
+      <Link
+        className="items-center gap-2 rounded-md py-1 hover:bg-transparent transition-colors text-white"
+        to={sub.link}>
+        <Collapsible className="grid gap-1">
+          <CollapsibleTrigger className={`flex items-center gap-2 rounded-md [&[data-state=open]>svg]:rotate-90 ${!x.sub && 'pr-3'}`} style={{ outline: 'none' }}>
+            <li> {sub.label} </li>
+            {sub.subShow && <ChevronRightIcon className="ml-auto mr-2 h-4 w-4 transition-all" > </ChevronRightIcon>}
+          </CollapsibleTrigger>
+        </Collapsible>
+      </Link>
     </CollapsibleContent>
-}
+  }

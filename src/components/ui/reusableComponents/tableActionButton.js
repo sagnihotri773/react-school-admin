@@ -6,12 +6,14 @@ import { useNavigate } from 'react-router-dom';
 
 
 export default function TableActionButton(props) {
-    const { viewPageUrl = '', editPageUrl = '', id = '', deleteRecord, viewBtn = false, editBtn = false, deleteBtn = false } = props;
+    const { viewPageUrl = '', editPageUrl = '', id = '', deleteRecord, viewBtn = false, editBtn = false, deleteBtn = false , handleModalOpen} = props;
     const navigate = useNavigate();
 
-    const routeRedirect = (value) => {
-        if (value != '') {
-            navigate(value);
+    const routeRedirect = (value , status) => {
+        console.log(']]]]]]]]]]]]]]' , status);
+        if (status == 1) {
+            // navigate(value);
+            handleModalOpen();
         }
     };
 
@@ -29,8 +31,8 @@ export default function TableActionButton(props) {
                 </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-                {viewBtn && <DropdownMenuItem onClick={(e) => routeRedirect(viewPageUrl)}><EyeIcon className="mr-2 h-4 w-4" />View</DropdownMenuItem>}
-                {editBtn && <DropdownMenuItem onClick={(e) => routeRedirect(editPageUrl)}><DeleteIcon className="mr-2 h-4 w-4" />Edit</DropdownMenuItem>}
+                {viewBtn && <DropdownMenuItem className="text-black" onClick={(e) => routeRedirect(viewPageUrl , 1)}><EyeIcon className="mr-2 h-4 w-4" />View</DropdownMenuItem>}
+                {editBtn && <DropdownMenuItem className="text-black" onClick={(e) => routeRedirect(editPageUrl , 2 )}><DeleteIcon className="mr-2 h-4 w-4" />Edit</DropdownMenuItem>}
                 {deleteBtn && <DropdownMenuItem className="text-error" onClick={(e) => deleteRecord(id)}> <TrashIcon className="mr-2 h-4 w-4" />Delete</DropdownMenuItem>}
             </DropdownMenuContent>
         </DropdownMenu>

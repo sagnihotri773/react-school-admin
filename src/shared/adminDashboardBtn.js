@@ -1,8 +1,9 @@
 import { PlusIcon, ListIcon, UserIcon, UsersIcon, CalendarIcon, FileTextIcon, BookOpenIcon, DollarSignIcon, MailIcon, ClipboardIcon, TruckIcon, SettingsIcon, TrashIcon, CheckIcon, DatabaseIcon, BriefcaseIcon, PrinterIcon, PencilIcon, LockOpenIcon, ClipboardListIcon, ClipboardCheckIcon, CakeIcon, AlignCenterHorizontalIcon, HeartIcon, LineChartIcon, NewspaperIcon , BarChartIcon , SchoolIcon} from '../utils/utils'
 
 export const quickaction = [
-    { color: 'addColorCode', title: 'Add Student', icon: <UsersIcon className="h-6 w-6" /> , link:'/students/create' },
-    { color: 'listingColorCode', title: 'List Students', icon: <ListIcon className="h-6 w-6" />, link: '/students/listing' },
+    { color: 'addColorCode', title: 'Admit Student', icon: <UsersIcon className="h-6 w-6" /> , link:'/students/create' },
+    { color: 'listingColorCode', title: 'Students Listing', icon: <ListIcon className="h-6 w-6" />, link: '/students/listing' },
+    
     { colorCode: '#F59E0B', title: 'Add Teachers', icon: <UsersIcon className="h-6 w-6" /> , link: '/teacher/create'},
     { color: 'listingColorCode', title: 'List Teachers', icon: <ListIcon className="h-6 w-6" /> , link: '/teacher/listing' },
 

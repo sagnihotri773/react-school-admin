@@ -58,7 +58,7 @@ export default function CardHeaderComp(props) {
                 <h1 className="font-semibold  md:text-2xl text-black"> {title} </h1>
                 {btnRender()}
             </div>
-            <strong className='mt-0 text-[#209f20]'> Total records {`(${totalRecord})`} </strong>
+            <strong className='mt-0 text-[#209f20]'> Showing {`(${totalRecord})`} out of 10 </strong>
         </CardHeader>
     )
 }

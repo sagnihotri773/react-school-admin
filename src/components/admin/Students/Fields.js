@@ -34,7 +34,7 @@ export const filterFieldConfig = [
         col: 'col-md-12 p-0',
         ErrorMessageShow: false,
     }, {
-        name: 'Section',
+        name: 'section',
         type: 'select',
         label: 'Section',
         options: [
@@ -53,8 +53,9 @@ export const filterFieldConfig = [
         label: 'Status',
         options: [
             { label: '--select--', value: '' },
-            { label: 'Active', value: 'Active' },
-            { label: 'In-Active', value: 'In-Active' },
+            { label: 'Active Students', value: 'Active Students' },
+            { label: 'Deactivated Students', value: 'Deactivated Students' },
+            { label: 'Passout Students', value: 'Passout Students' },
         ],
         col: 'col-md-12 p-0',
         ErrorMessageShow: false,
@@ -62,7 +63,6 @@ export const filterFieldConfig = [
 ];
 
 
-console.log('isMobile', isMobile);
 export const fieldConfig = [
     {
         name: 'profileimage',

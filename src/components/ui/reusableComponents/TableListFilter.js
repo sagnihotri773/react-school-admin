@@ -10,12 +10,11 @@ export default function TableListFilter(props) {
 
 
     return (
-        <Collapsible className="grid text-black bold mb-3" >
+        <Collapsible className="grid text-black bold" >
             <div className='text-right'>
-
-            <CollapsibleTrigger className={`flex items-center gap-1 rounded-md [&[data-state=open]>svg]:rotate-90 mb-3 text-[#088224] hover:text-[#0db634]`} style={{ outline: 'none', float:'right'}} onClick={handleOpenFilter}>
-          <strong className=''> Apply Filter </strong> <ChevronRightIcon type="button" className="ml-0 h-4 w-4 transition-all"  />
-            </CollapsibleTrigger>
+                <CollapsibleTrigger className={`flex items-center gap-1 rounded-md [&[data-state=open]>svg]:rotate-90 mb-3 text-[#088224] hover:text-[#0db634]`} style={{ outline: 'none', float: 'right' }} onClick={handleOpenFilter}>
+                    <strong className=''> Apply Filter </strong> <ChevronRightIcon type="button" className="ml-0 h-4 w-4 transition-all" />
+                </CollapsibleTrigger>
             </div>
 
             <CollapsibleContent className="grid gap-1 p-0 " >
@@ -26,7 +25,7 @@ export default function TableListFilter(props) {
                     }}
                 >
                     {({ setFieldValue, values, resetForm }) => (
-                        <Form className="dark:bg-black-800 dark:text-white-800 text-black">
+                        <Form className="dark:bg-black-800 dark:text-white-800 text-black mb-3">
                             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
                                 <InputFields
                                     fieldConfig={filterFieldConfig}
@@ -42,13 +41,13 @@ export default function TableListFilter(props) {
                                     {filterButtonName}
                                 </Button>
                                 {/* <CollapsibleTrigger> */}
-                                    <Button type="button" className='border rounded-md bg-white' size="sm"
-                                        onClick={() => {
-                                            resetForm();
-                                            clearFilter();
-                                        }} >
-                                        {filterClearButton}
-                                    </Button>
+                                <Button type="button" className='border rounded-md bg-white' size="sm"
+                                    onClick={() => {
+                                        resetForm();
+                                        clearFilter();
+                                    }} >
+                                    {filterClearButton}
+                                </Button>
                                 {/* </CollapsibleTrigger> */}
                             </div>
                         </Form>
