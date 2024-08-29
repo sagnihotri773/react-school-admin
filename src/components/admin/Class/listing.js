@@ -40,7 +40,7 @@ export default function TeacherList() {
         if (selectAll) {
             setSelectedItems([]);
         } else {
-            setSelectedItems(data.map(item => item.id));
+            setSelectedItems(data?.map(item => item.id));
         }
         setSelectAll(prevState => !prevState);
     };
@@ -77,7 +77,7 @@ export default function TeacherList() {
                     <TableListFilter handleOpenFilter={handleOpenFilter} filterButtonName={'Apply Filter'} filterClearButton='Clear Filter' onSubmit={onSubmit} filterFieldConfig={filterFieldConfig} clearFilter={clearFilter} initialValues={initialValues} />
                     <Card className="w-full">
 
-                        <CardHeaderComp title="Assign Teacher" routeRedirect={routeRedirect} CreateBtn={'Assign Teacher'} handleActions={handleActions} totalRecord={data.length} createUrl='/assign-teacher' />
+                        <CardHeaderComp title="Assign Teacher" routeRedirect={routeRedirect} CreateBtn={'Assign Teacher'} handleActions={handleActions} totalRecord={data?.length} createUrl='/assign-teacher' />
 
                         <CardContent className="p-0">
                             <div className="overflow-auto">
@@ -135,7 +135,7 @@ export default function TeacherList() {
                                         )) : ''}
                                     </TableBody>
                                 </Table>
-                                {data.length == 0 && <div className='text-center m-5'>
+                                {data?.length == 0 && <div className='text-center m-5'>
                                     ...Loading
                                 </div>}
                             </div>
