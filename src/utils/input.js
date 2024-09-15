@@ -59,7 +59,7 @@ export default function InputComp(props) {
     }
 
     const labelAll = (field) => {
-        return <> <Label className={`text-sm ${field?.labelClass}`} htmlFor={field.name} >{field.label}</Label> {field?.required && <strong className='text-danger'> * </strong>} </>
+        return <> <Label className={`text-sm ${field?.labelClass}`} htmlFor={field.name} >{field.label}</Label>{field?.required && <span className='text-danger'>*</span>} </>
     }
 
     return fieldConfig.map((field, i) => (

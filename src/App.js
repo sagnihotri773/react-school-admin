@@ -23,6 +23,7 @@ import { Login } from './components/auth/Login';
 import { ToastContainer } from 'react-toastify';
 import './App.css';
 import NotFound from './utils/NotFound';
+import '@fortawesome/fontawesome-free/css/all.min.css';
 
 
 const queryClient = new QueryClient();
