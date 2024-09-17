@@ -9,14 +9,32 @@ import AdminDashboardControle from '../../../shared/adminDashboardControle';
 import { CollapsibleTrigger, CollapsibleContent, Collapsible } from "../../ui/collapsible";
 import Layout from '../layout/Layout';
 import { ChevronDownIcon, ChevronUpIcon } from 'lucide-react';
+import UserImg from '../../../media/download.png';
+import CardsComponents from './cards';
 
 const Dashboard = () => {
     const [active, setActive] = useState(1);
     const [openFilter, setOpenFilter] = useState(false);
-    const [showDetails, setShowDetails] = useState(true)
+    const [showDetails, setShowDetails] = useState(true);
+    const [toggleStudents, setToggleStudents] = useState(true);
+    const [toggleTeachers, setToggleTeachers] = useState(true);
+    const [toggleFee, setToggleFee] = useState(true);
 
     const toggleDetails = () => setShowDetails(!showDetails)
+    const toggleStudentsDetails = () => setToggleStudents(!toggleStudents)
+    const toggleTeachersDetails = () => setToggleTeachers(!toggleTeachers)
+    const toggleFeeDetails = () => setToggleFee(!toggleFee);
+    const admissions = [
+        { name: "Sahib Ali", date: "23 Jul - 2023", img: UserImg },
+        { name: "Ali Hassan", date: "27 Feb - 2023", img: UserImg },
+        { name: "Altaf Hussain", date: "26 Jan - 2023", img: UserImg },
+        { name: "Altaf Hussain", date: "26 Jan - 2023", img: UserImg },
+        { name: "Altaf Hussain", date: "26 Jan - 2023", img: UserImg },
+        { name: "Altaf Hussain", date: "26 Jan - 2023", img: UserImg },
+        { name: "Altaf Hussain", date: "26 Jan - 2023", img: UserImg },
+        { name: "Altaf Hussain", date: "26 Jan - 2023", img: UserImg },
 
+    ];
     return (
         <Layout
             header={<Header title="Students Bulk Upload " />} // Pass your Header component
@@ -35,26 +53,11 @@ const Dashboard = () => {
                     </CollapsibleContent>
                 </Collapsible>
 
-                <Common title={'Admin Dashboard'} >
-                    <div className="flex justify-between items-center ">
-                        <button
-                            onClick={toggleDetails}
-                            className="flex items-center text-black hover:text-blue-800"
-                        >
-                            {showDetails ? (
-                                <>
-                                    <ChevronUpIcon className="w-4 h-4 mr-1" />
-                                    Hide Details
-                                </>
-                            ) : (
-                                <>
-                                    <ChevronDownIcon className="w-4 h-4 mr-1" />
-                                    Show Details
-                                </>
-                            )}
-                        </button>
-                    </div>
-                </Common>
+                <Collaps
+                    title="Admin Dashboard"
+                    toggle={showDetails}
+                    onToggle={toggleDetails}
+                />
 
                 {showDetails && (
                     <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-4 gap-4">
@@ -81,55 +84,110 @@ const Dashboard = () => {
                     </div>
                 )}
 
-                <Common title={'Students Details'} />
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    {adminStudentDetails?.map((cardValue, i) => (
-                        <Card key={i} className={`${cardValue.color} text-white`}>
-                            <CardContent className="flex p-6 items-center justify-between">
-                                <div>
-                                    <h3 className="text-2xl font-bold"> {cardValue.count} </h3>
-                                    <p className="text-sm"> {cardValue.title} </p>
-                                </div>
-                                {cardValue.icon}
-                            </CardContent>
-                        </Card>
-                    ))}
+                <Collaps
+                    title="Students Details"
+                    toggle={toggleStudents}
+                    onToggle={toggleStudentsDetails}
+                />
+
+                {toggleStudents &&
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        {adminStudentDetails?.map((cardValue, i) => (
+                            <Card key={i} className={`${cardValue.color} text-white`}>
+                                <CardContent className="flex p-6 items-center justify-between">
+                                    <div>
+                                        <h3 className="text-2xl font-bold"> {cardValue.count} </h3>
+                                        <p className="text-sm"> {cardValue.title} </p>
+                                    </div>
+                                    {cardValue.icon}
+                                </CardContent>
+                            </Card>
+                        ))}
+                    </div>}
+
+                <Collaps
+                    title="Teachers Details"
+                    toggle={toggleTeachers}
+                    onToggle={toggleTeachersDetails}
+                />
+
+                {toggleTeachers &&
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        {adminTeachersDetails?.map((cardValue, i) => (
+                            <Card key={i} className={`${cardValue.color} text-white`} style={{ background: cardValue.bgColor }}>
+                                <CardContent className="flex p-6 items-center justify-between">
+                                    <div>
+                                        <h3 className="text-2xl font-bold"> {cardValue.count} </h3>
+                                        <p className="text-sm"> {cardValue.title} </p>
+                                    </div>
+                                    {cardValue.icon}
+                                </CardContent>
+                            </Card>
+                        ))}
+                    </div>}
+                <Collaps
+                    title="Fee Details"
+                    toggle={toggleFee}
+                    onToggle={toggleFeeDetails}
+                />
+
+                {toggleFee &&
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        {adminFeeDetail?.map((cardValue, i) => (
+                            <Card key={i} className={`${cardValue.cardColor} `}>
+                                <CardContent className="flex p-6 items-center gap-4">
+                                    <div className={`${cardValue.symbolBG} rounded-full p-3`}>
+                                        <IndianRupeeIcon className="h-6 w-6 text-white" />
+                                    </div>
+                                    <div>
+                                        <h3 className="text-lg font-semibold text-[#000000]"> {cardValue.label}</h3>
+                                        <p className="text-sm text-[#000000] dark:text-[#000000]">{cardValue.symbol} {cardValue.amount}</p>
+                                    </div>
+                                </CardContent>
+                            </Card>
+                        ))}
+                    </div>}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="">
+                        <CardsComponents title={'Latest Admissions'} data={admissions} />
+                    </div>
+                    <div className="">
+                        Right Column
+                    </div>
                 </div>
 
-                <Common title={'Teachers Details'} />
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    {adminTeachersDetails?.map((cardValue, i) => (
-                        <Card key={i} className={`${cardValue.color} text-white`} style={{ background: cardValue.bgColor }}>
-                            <CardContent className="flex p-6 items-center justify-between">
-                                <div>
-                                    <h3 className="text-2xl font-bold"> {cardValue.count} </h3>
-                                    <p className="text-sm"> {cardValue.title} </p>
-                                </div>
-                                {cardValue.icon}
-                            </CardContent>
-                        </Card>
-                    ))}
-                </div>
-
-                <Common title={'Fee Details'} />
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    {adminFeeDetail?.map((cardValue, i) => (
-                        <Card key={i} className={`${cardValue.cardColor} `}>
-                            <CardContent className="flex p-6 items-center gap-4">
-                                <div className={`${cardValue.symbolBG} rounded-full p-3`}>
-                                    <IndianRupeeIcon className="h-6 w-6 text-white" />
-                                </div>
-                                <div>
-                                    <h3 className="text-lg font-semibold text-[#000000]"> {cardValue.label}</h3>
-                                    <p className="text-sm text-[#000000] dark:text-[#000000]">{cardValue.symbol} {cardValue.amount}</p>
-                                </div>
-                            </CardContent>
-                        </Card>
-                    ))}
-                </div>
             </main>
         </Layout>
 
     )
 }
 export default Dashboard;
+
+
+
+export const Collaps = ({ title, toggle, onToggle }) => {
+    return (
+        <Common title={title} >
+            <div className="common-component">
+                <div className="flex justify-between items-center">
+                    <button
+                        onClick={onToggle}
+                        className="flex items-center text-black hover:text-blue-800"
+                    >
+                        {toggle ? (
+                            <>
+                                <ChevronUpIcon className="w-4 h-4 mr-1" />
+                                Hide
+                            </>
+                        ) : (
+                            <>
+                                <ChevronDownIcon className="w-4 h-4 mr-1" />
+                                Show
+                            </>
+                        )}
+                    </button>
+                </div>
+            </div>
+        </Common>
+    );
+};
