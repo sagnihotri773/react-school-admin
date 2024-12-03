@@ -19,7 +19,7 @@ export const initialOptions = {
     ]
 };
 
-const getStudentLocalData = JSON.parse(localStorage.getItem('student')) || [] ;
+export const getStudentLocalData = JSON.parse(localStorage.getItem('student')) || [] ;
 
 export const data = getStudentLocalData ;
 // export const data1 = [

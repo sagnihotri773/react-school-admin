@@ -41,24 +41,25 @@ export default function Create() {
   }, []);
 
   const onSubmit = async (values) => {
-    // setIsLoading(true);
-    console.log('values', values);
-    // return
-    // localStorage.setItem('data', JSON.stringify(values))
-    const newEntry = { ...values, id: uuidv4() };
-    setFormData([...formData, newEntry]);
+    const newValues = Array.isArray(values) ? { ...values, id: uuidv4() } : [{ ...values, id: uuidv4() }];
+    const savedRecords = JSON.parse(localStorage.getItem("student")) || [];
+    const updatedRecords = [...savedRecords, ...newValues];
+    localStorage.setItem('student', JSON.stringify(updatedRecords));
+    navigate('/students/listing');
+    // const newEntry = { ...values, id: uuidv4() };
+    // setFormData([...formData, newEntry]);
 
-    try {
-      const { data } = await addStudent({ variables: { ...formData } });
-      toast.success(`Student added successfully: ${data.addStudent.name}`, {
-        position: toast.POSITION.TOP_RIGHT,
-      });
-    } catch (error) {
-      console.error('Error adding student:', error);
-      toast.error(`Error adding student: ${error.message}`, {
-        position: toast.POSITION.TOP_RIGHT,
-      });
-    }
+    // try {
+    //   const { data } = await addStudent({ variables: { ...formData } });
+    //   toast.success(`Student added successfully: ${data.addStudent.name}`, {
+    //     position: toast.POSITION.TOP_RIGHT,
+    //   });
+    // } catch (error) {
+    //   console.error('Error adding student:', error);
+    //   toast.error(`Error adding student: ${error.message}`, {
+    //     position: toast.POSITION.TOP_RIGHT,
+    //   });
+    // }
     // try {
     //   // Retrieve existing data from local storage or initialize empty array
     //   const existingData = JSON.parse(localStorage.getItem('student')) || [];

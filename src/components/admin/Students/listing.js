@@ -3,7 +3,7 @@ import Sidebar from '../layout/sidebar';
 import Header from '../layout/header';
 import { isMobile } from '../../../utils/utils';
 import { useNavigate } from 'react-router-dom';
-import { data, hTitls } from './Extra';
+import { getStudentLocalData, hTitls } from './Extra';
 import { filterFieldConfig, initialValues } from './Fields';
 import { TableRow, TableCell, TableBody, Table } from "../../ui/table"
 import CardHeader from '../../ui/reusableComponents/cardHeader';
@@ -34,7 +34,7 @@ export default function TeacherList() {
     const [isLoading, setIsLoading] = useState(false);
     const [selectAll, setSelectAll] = useState(false);
     const [openFilter, setOpenFilter] = useState(false);
-    const [tableData, setTableData] = useState(data);
+    const [tableData, setTableData] = useState(getStudentLocalData);
     const [viewStudentModal, setViewStudentModal] = useState(false);
 
     const handleCheckboxChange = (recordId) => {
@@ -45,11 +45,17 @@ export default function TeacherList() {
         }
     };
 
+    useEffect(() => {
+        if (getStudentLocalData) {
+            setTableData(getStudentLocalData);
+        }
+    },[getStudentLocalData])
+
     const handleSelectAllChange = () => {
         if (selectAll) {
             setSelectedItems([]);
         } else {
-            setSelectedItems(data.map(item => item.id));
+            setSelectedItems(getStudentLocalData.map(item => item.id));
         }
         setSelectAll(prevState => !prevState);
     };
@@ -68,7 +74,7 @@ export default function TeacherList() {
 
     const filterStudents = (filters = {}) => {
         setIsLoading(true);
-        const filtered = data.filter((student) => {
+        const filtered = getStudentLocalData.filter((student) => {
             return (
                 student?.name.toLowerCase().includes(filters?.name?.toLowerCase()) &&
                 student?.class.toLowerCase().includes(filters?.class?.toLowerCase())
@@ -81,13 +87,13 @@ export default function TeacherList() {
                 setTableData([]);
             }
         } else {
-            setTableData(data);
+            setTableData(getStudentLocalData);
         }
         setIsLoading(false);
     }
 
     const clearFilter = () => {
-        setTableData(data);
+        setTableData(getStudentLocalData);
         setOpenFilter(true);
     }
 
@@ -96,7 +102,7 @@ export default function TeacherList() {
     }
 
     const deleteRecord = (id) => {
-        const filterData = data?.filter((x) => x.id !== id);
+        const filterData = getStudentLocalData?.filter((x) => x.id !== id);
         setLocalData('student', filterData);
         setTableData(filterData);
     }
