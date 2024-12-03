@@ -11,6 +11,10 @@ import { v4 as uuidv4 } from 'uuid';
 import Layout from '../layout/Layout';
 import { showSuccessToast } from '../../../utils/toastUtils';
 import UserImg from '../../../media/download.png'
+import { gql, useMutation } from '@apollo/client';
+import { ADD_STUDENT } from '../../../utils/querys/student';
+import { toast } from 'react-toastify';
+
 
 const d = { 'id': 1, "image": UserImg, "teacherName": "shubham agnihotri", "age": 34, "email": "agnihotrishubham8055@gmail.com", "gender": "male", "phoneNumber": "7009764092", "qualification": "test", "bloodGroup": "AB+", "adharCardImg": "", "address": "vpo rangilpur", "fatherName": "sdsd", "teacherClass": [1, 2, 3], "Section": "C", "skills": "next js , bootstrap, Next js, git hub, firebase, API integration , material ui, ", "experience": 34, "teacherId": "sdsdsd", "joiningDate": "2024-05-10" }
 
@@ -21,6 +25,7 @@ export default function Create() {
   const [formData, setFormData] = useState([])
   const [isLoading, setIsLoading] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
+  const [addStudent] = useMutation(ADD_STUDENT);
 
   useEffect(() => {
     if (d) {
@@ -35,7 +40,7 @@ export default function Create() {
     }
   }, []);
 
-  const onSubmit = (values) => {
+  const onSubmit = async (values) => {
     // setIsLoading(true);
     console.log('values', values);
     // return
@@ -44,17 +49,28 @@ export default function Create() {
     setFormData([...formData, newEntry]);
 
     try {
-      // Retrieve existing data from local storage or initialize empty array
-      const existingData = JSON.parse(localStorage.getItem('student')) || [];
-      existingData.push(newEntry);
-      localStorage.setItem('student', JSON.stringify(existingData));
-      setIsLoading(false);
-      showSuccessToast('Student add succes')
-      navigate('/students/listing');
-      console.log('Form data saved successfully!');
+      const { data } = await addStudent({ variables: { ...formData } });
+      toast.success(`Student added successfully: ${data.addStudent.name}`, {
+        position: toast.POSITION.TOP_RIGHT,
+      });
     } catch (error) {
-      console.error('Error saving form data:', error);
+      console.error('Error adding student:', error);
+      toast.error(`Error adding student: ${error.message}`, {
+        position: toast.POSITION.TOP_RIGHT,
+      });
     }
+    // try {
+    //   // Retrieve existing data from local storage or initialize empty array
+    //   const existingData = JSON.parse(localStorage.getItem('student')) || [];
+    //   existingData.push(newEntry);
+    //   localStorage.setItem('student', JSON.stringify(existingData));
+    //   setIsLoading(false);
+    //   showSuccessToast('Student add succes')
+    //   navigate('/students/listing');
+    //   console.log('Form data saved successfully!');
+    // } catch (error) {
+    //   console.error('Error saving form data:', error);
+    //}
   }
 
   const handleRemoveImage = (setFieldValue) => {

@@ -8,9 +8,10 @@ import Common from '../../../shared/common';
 import AdminDashboardControle from '../../../shared/adminDashboardControle';
 import { CollapsibleTrigger, CollapsibleContent, Collapsible } from "../../ui/collapsible";
 import Layout from '../layout/Layout';
-import { ChevronDownIcon, ChevronUpIcon } from 'lucide-react';
+import { SmileIcon, FrownIcon, ClockIcon, CalendarIcon, ChevronDownIcon, ChevronUpIcon } from 'lucide-react';
 import UserImg from '../../../media/download.png';
 import CardsComponents from './cards';
+import { AttendanceCard } from './attandanceCard';
 
 const Dashboard = () => {
     const [active, setActive] = useState(1);
@@ -148,12 +149,8 @@ const Dashboard = () => {
                         ))}
                     </div>}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="">
-                        <CardsComponents title={'Latest Admissions'} data={admissions} />
-                    </div>
-                    <div className="">
-                        Right Column
-                    </div>
+                    <CardsComponents title={'Latest Admissions'} data={admissions} />
+                    <AttendanceCard />
                 </div>
 
             </main>
